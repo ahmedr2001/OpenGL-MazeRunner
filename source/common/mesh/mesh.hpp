@@ -34,19 +34,16 @@ namespace our {
 
             elementCount = elements.size();
 
-            GLuint VBO;
             glGenBuffers(1, &VBO);
             glBindBuffer(GL_ARRAY_BUFFER, VBO);
             glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
 
-            GLuint EBO;
             glGenBuffers(1, &EBO);
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
             glBufferData(GL_ELEMENT_ARRAY_BUFFER, elements.size() * sizeof(unsigned int), elements.data(), GL_STATIC_DRAW);
 
             glBindVertexArray(0);
 
-            GLuint VAO;
             glGenVertexArrays(1, &VAO);
             glBindVertexArray(VAO);
 
