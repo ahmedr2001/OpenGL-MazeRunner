@@ -24,7 +24,7 @@ namespace our {
         return retMatrix; 
     }
 
-     // Deserializes the entity data and components from a json object
+    // Deserializes the entity data and components from a json object
     void Transform::deserialize(const nlohmann::json& data){
         position = data.value("position", position);
         rotation = glm::radians(data.value("rotation", glm::degrees(rotation)));
