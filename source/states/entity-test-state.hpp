@@ -64,8 +64,6 @@ class EntityTestState : public our::State
             // TODO: (Req 8) Complete the loop body to draw the current entity
             //  Then we setup the material, send the transform matrix to the shader then draw the mesh
 
-            // ERROR_EXPECT!
-
             //  Get Material
             our::Material *material = meshRenderer->material;
             // Setup Material
