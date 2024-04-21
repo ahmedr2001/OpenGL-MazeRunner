@@ -34,6 +34,11 @@ namespace our {
 
             elementCount = elements.size();
 
+            glBindVertexArray(0);
+
+            glGenVertexArrays(1, &VAO);
+            glBindVertexArray(VAO);
+
             glGenBuffers(1, &VBO);
             glBindBuffer(GL_ARRAY_BUFFER, VBO);
             glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
@@ -42,10 +47,6 @@ namespace our {
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
             glBufferData(GL_ELEMENT_ARRAY_BUFFER, elements.size() * sizeof(unsigned int), elements.data(), GL_STATIC_DRAW);
 
-            glBindVertexArray(0);
-
-            glGenVertexArrays(1, &VAO);
-            glBindVertexArray(VAO);
 
 
             glEnableVertexAttribArray(ATTRIB_LOC_POSITION);
