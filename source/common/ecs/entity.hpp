@@ -94,14 +94,15 @@ namespace our
             for (auto it = this->components.begin(); it != this->components.end(); it++)
             {
                 // Check if component is of type T
-                if (dynamic_cast<T *>(*it) != nullptr)
+                if (dynamic_cast<T *>(*it) != nullptr) {
                     // If so
                     // delete the found component
                     delete *it;
-                // remove it from the components list
-                this->components.erase(it);
-                // return after deleting the first component
-                return;
+                    // remove it from the components list
+                    this->components.erase(it);
+                    // return after deleting the first component
+                    return;
+                }
             }
         }
 
