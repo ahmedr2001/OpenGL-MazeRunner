@@ -27,7 +27,7 @@ namespace our
             //  We will draw the sphere from the inside, so what options should we pick for the face culling.
             PipelineState skyPipelineState{};
 
-            // draw if its depth value <= the current pixel depth value
+            // will draw if its depth value <= the current pixel depth value
             skyPipelineState.depthTesting.enabled = true;
             skyPipelineState.depthTesting.function = GL_LEQUAL;
             // cull front faces
@@ -209,17 +209,18 @@ namespace our
             this->skyMaterial->setup();
 
             // TODO: (Req 10) Get the camera position
-            glm::vec3 cameraPosition = glm::vec3(camera->getViewMatrix()[3]);
+            // get camera position after transforming it to world space
+            glm::vec3 cameraPosition = camera->getOwner()->getLocalToWorldMatrix() * glm::vec4(0, 0, 0, 1);
 
             // TODO: (Req 10) Create a model matrix for the sy such that it always follows the camera (sky sphere center = camera position)
-            // Move the sky sphere to the position of the camera
+            // Move the sky sphere center to the position of the camera
             glm::mat4 M = glm::translate(glm::mat4(1.0f), cameraPosition);
 
             // TODO: (Req 10) We want the sky to be drawn behind everything (in NDC space, z=1)
             //  We can acheive the is by multiplying by an extra matrix after the projection but what values should we put in it?
 
             // Farthest depth (( z = 1 ))
-            // Don't change X,Y; change z to be at farthest depth
+            // ONLY change z to be at farthest depth
             glm::mat4 alwaysBehindTransform = glm::mat4(
                 //   x     y     z     w
                 1.0f, 0.0f, 0.0f, 0.0f,  // col-1
@@ -228,7 +229,7 @@ namespace our
                 0.0f, 0.0f, 1.0f, 1.0f); // col-4
 
             // TODO: (Req 10) set the "transform" uniform
-            // ERROR_EXPECT!
+            // transform is the model-view-projection matrix, multiplied by alwaysBehindTransform to make the sky sphere always behind everything
             this->skyMaterial->shader->set("transform", alwaysBehindTransform * VP * M);
 
             // TODO: (Req 10) draw the sky sphere
