@@ -63,11 +63,11 @@ namespace our
         //  Left and Right are the same but after being multiplied by the aspect ratio
         //  For the perspective camera, you can use glm::perspective
 
-        glm::mat4 projectionMatrix = glm::ortho(-(this->orthoHeight) / 2 * (float(viewportSize[0]) / viewportSize[1]), (this->orthoHeight) / 2 * (float(viewportSize[0]) / viewportSize[1]), -(this->orthoHeight) / 2, (this->orthoHeight) / 2);
+        glm::mat4 orthoMatrix = glm::ortho(-(this->orthoHeight) / 2 * (float(viewportSize[0]) / viewportSize[1]), (this->orthoHeight) / 2 * (float(viewportSize[0]) / viewportSize[1]), -(this->orthoHeight) / 2, (this->orthoHeight) / 2);
         glm::mat4 prespectiveCamera = glm::perspective(this->fovY, float(viewportSize[0]) / viewportSize[1], this->near, this->far);
 
         if (this->cameraType == CameraType::PERSPECTIVE)
             return prespectiveCamera;
-        return projectionMatrix;
+        return orthoMatrix;
     }
 }
