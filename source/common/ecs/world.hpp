@@ -69,9 +69,9 @@ namespace our
         {
             // TODO: (Req 8) Remove and delete all the entities that have been marked for removal
             for (auto it = this->markedForRemoval.begin(); it != this->markedForRemoval.end(); it++)
-            {   
+            {
                 // Remove the elements in "markedForRemoval" from the "entities" set.
-                if(entities.find(*it) != entities.end())
+                if (entities.find(*it) != entities.end())
                     this->entities.erase(it);
                 // Delete marked entity
                 delete *it;
@@ -87,7 +87,7 @@ namespace our
             // Delete marked entites
             this->deleteMarkedEntities();
             // Delete entites
-            for (auto it = this->markedForRemoval.begin(); it != this->markedForRemoval.end(); it++)
+            for (auto it = this->entities.begin(); it != this->entities.end(); it++)
             {
                 // Delete marked entity
                 delete *it;
