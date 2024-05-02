@@ -316,7 +316,7 @@
                   }
                 },
                 "tint": [1, 1, 1, 1],
-                "texture": "cartex2",
+                "texture": "cartex",
                 "sampler": "default"
               },
               "energy": {
@@ -355,7 +355,7 @@
           },
         "world":[
             {
-                "position": [0, 0, 0],
+                "position": [0, 5, 5],
                 "components": [
                     {
                         "type": "Camera"
@@ -365,18 +365,19 @@
                     }
                 ],
                 "children": [
-                    {
-                        "position": [1, -1, -1],
-                        "rotation": [45, 45, 0],
-                        "scale": [0.1, 0.1, 1.0],
-                        "components": [
-                            {
-                                "type": "Mesh Renderer",
-                                "mesh": "cube",
-                                "material": "metal"
-                            }
-                        ]
-                    } 
+                  {
+                    "position": [0, -6, -7],
+                    "name": "player",
+                    "rotation": [0, 180, 0],
+                    "scale": [0.03, 0.03, 0.03],
+                    "components": [
+                      {
+                        "type": "Mesh Renderer",
+                        "mesh": "car",
+                        "material": "carMaterial2"
+                      }
+                    ]
+                  }
                 ]
             },
             // {
@@ -459,6 +460,22 @@
             //     ]
             // }
             ///////////////////////////////////////////////////////////
+              
+
+              // ! Car Comment
+              // {
+              //   "position": [0, -1, -1],
+              //   "name": "player",
+              //   "rotation": [0, 180, 0],
+              //   "scale": [0.03, 0.03, 0.03],
+              //   "components": [
+              //     {
+              //       "type": "Mesh Renderer",
+              //       "mesh": "car",
+              //       "material": "carMaterial2"
+              //     }
+              //   ]
+              // },
 
             // !  1st horizontal walls
 
