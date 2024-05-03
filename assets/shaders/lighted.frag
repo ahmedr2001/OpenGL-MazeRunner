@@ -6,11 +6,11 @@
 
 struct Light {
     int type;
-    vec3 position;
-    vec3 direction;
-    vec3 color;
+    vec3 position; // for POINT and SPOT lights (to calc distance)
+    vec3 direction; // direction of light (from light to)
+    vec3 color; // color of light (for diffuse, specular)
     vec3 attenuation;
-    vec2 cone_angles;
+    vec2 cone_angles; // for SPOT light
 };
 
 #define MAX_LIGHTS 8
@@ -49,10 +49,14 @@ in Varyings {
 
 out vec4 frag_color;
 
+// [Lambert's cos law] Calc dot product of DIRECTIONAL light with normal vector
 float lambert(vec3 normal, vec3 world_to_light_direction) {
+    // Using max(0, -ve) ensures that when the light direction and the surface normal are in opposite directions,
+    //  resulting in negative illumination, the value is clamped to zero to signify no light.
     return max(0.0, dot(normal, world_to_light_direction));
 }
 
+// Calc phong specular formula
 float phong(vec3 reflected, vec3 view, float shininess) {
     return pow(max(0.0, dot(reflected, view)), shininess);
 }
@@ -83,11 +87,10 @@ void main() {
             world_to_light_dir = -light.direction;
         } else {
             world_to_light_dir = light.position - fs_in.world;
-            float d = length(world_to_light_dir);
-            world_to_light_dir /= d;
+            float d = length(world_to_light_dir); // light distance
+            world_to_light_dir /= d; // normalize light direction
 
-            attenuation = 1.0 / dot(light.attenuation, vec3(d*d, d, 1.0));
-
+            attenuation = 1.0 / dot(light.attenuation, vec3(d*d, d, 1.0)); // Attenuation (1,0,0) decreases with ( d^2 ), (0,1,0) diminishes linearly with ( d ), (0,0,1) and remains constant otherwise.
             if(light.type == SPOT){
                 float angle = acos(dot(light.direction, -world_to_light_dir));
                 attenuation *= smoothstep(light.cone_angles.y, light.cone_angles.x, angle);
