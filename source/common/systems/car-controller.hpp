@@ -134,36 +134,41 @@ namespace our
             auto entities = World->getEntities();
             //Loop over all walls to check if the scarecrow collided with any of them
 
-            float min_x = 100.0f;
-            float min_z = 100.0f;
+            glm::vec3 min_x; 
+            glm::vec3 min_z;
+
             for(auto entity : entities)
             {
-                if(entity->getComponent<zwall>())
+                if(entity->getComponent<wall>())
                 {
                     
-                    wallPosition =glm::vec3(entity->getLocalToWorldMatrix() *glm::vec4(entity->localTransform.position, 1.0));
-
-                    min_x = glm::min(abs(position.x - wallPosition.x), min_x);
-
-                    if(abs(position.x - wallPosition.x) < 3)
+                    wallPosition = glm::vec3(entity->getLocalToWorldMatrix() *glm::vec4(entity->localTransform.position, 1.0));     
+                    if (glm::distance(wallPosition, position) < glm::distance(position, min_x))
+                    {
+                        min_x = wallPosition;
+                    }
+                    
+                    if(abs(position.x - wallPosition.x)  < 3 && abs(position.z - wallPosition.z) <= 5)
                     {                   
                         return COLLIDED_WITH_XWALL;
                     }
+
                 }
-                if(entity->getComponent<wall>())
+                if(entity->getComponent<zwall>())
                 {
                     zwallPosition =glm::vec3(entity->getLocalToWorldMatrix() *glm::vec4(entity->localTransform.position, 1.0));
 
-                    min_z = glm::min(abs(position.z - zwallPosition.z), min_z);
-                    if(abs(position.z-zwallPosition.z)<3)
+                    if (glm::distance(wallPosition, position) < glm::distance(position, min_z))
                     {
-                        // printf("collision z =  %f\n", abs(position.z - zwallPosition.z));
+                        min_z = zwallPosition;
+                    }                      
+                    if(abs(position.z-zwallPosition.z) < 3 && abs(position.x - wallPosition.x)  <= 5)
+                    {
                         return COLLIDED_WITH_ZWALL;
                     }
+                    
                 }
             }
-            printf("min_x = %f\n", min_x);
-            printf("min_z = %f\n", min_z);
             return NO_COLLISION;
     
         }
