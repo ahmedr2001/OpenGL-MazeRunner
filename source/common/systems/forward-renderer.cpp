@@ -62,17 +62,16 @@ namespace our
             // TODO: (Req 11) Create a framebuffer
             glGenFramebuffers(1, &postprocessFrameBuffer);
             glBindFramebuffer(GL_DRAW_FRAMEBUFFER, postprocessFrameBuffer);
-            
+
             // TODO: (Req 11) Create a color and a depth texture and attach them to the framebuffer
             //  Hints: The color format can be (Red, Green, Blue and Alpha components with 8 bits for each channel).
             //  The depth format can be (Depth component with 24 bits).
 
             colorTarget = texture_utils::empty(GL_RGBA8, windowSize);
             depthTarget = texture_utils::empty(GL_DEPTH_COMPONENT24, windowSize);
-            
+
             glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTarget->getOpenGLName(), 0);
             glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorTarget->getOpenGLName(), 0);
-
 
             // TODO: (Req 11) Unbind the framebuffer just to be safe
             glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
@@ -133,6 +132,7 @@ namespace our
         CameraComponent *camera = nullptr;
         opaqueCommands.clear();
         transparentCommands.clear();
+        lights.clear();
         for (auto entity : world->getEntities())
         {
             // If we hadn't found a camera yet, we look for a camera in this entity
@@ -157,6 +157,11 @@ namespace our
                     // Otherwise, we add it to the opaque command list
                     opaqueCommands.push_back(command);
                 }
+            }
+            // If this entity has a light component, we add it to the lights list
+            if (auto light = entity->getComponent<LightComponent>(); light)
+            {
+                lights.push_back(light);
             }
         }
 
@@ -205,8 +210,55 @@ namespace our
         {
             // setup the pipeline state and set the shader program to be used
             command.material->setup();
-            // set the "transform" uniform to be equal the model-view-projection matrix
-            command.material->shader->set("transform", VP * command.localToWorld);
+
+            // If object has lit material
+            if (auto litMaterial = dynamic_cast<LitMaterial *>(command.material); litMaterial)
+            {
+                // lighted shader
+                command.material->shader->set("VP", VP);
+                command.material->shader->set("camera_position", camera->getOwner()->getLocalToWorldMatrix() * glm::vec4(0, 0, 0, 1));
+                command.material->shader->set("M", command.localToWorld);
+                command.material->shader->set("M_IT", glm::transpose(glm::inverse(command.localToWorld)));
+
+                command.material->shader->set("light_count", int(lights.size()));
+
+                // Iterate over lights
+                int index = 0;
+                for (auto &light : lights)
+                {
+                    glm::vec3 lightPosition = light->getOwner()->getLocalToWorldMatrix() * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+                    glm::vec3 lightDirection = light->getOwner()->getLocalToWorldMatrix() * glm::vec4(0.0f, -1.0f, 0.0f, 0.0f);
+
+                    command.material->shader->set("lights[" + std::to_string(index) + "].type", int(light->lightType));
+                    command.material->shader->set("lights[" + std::to_string(index) + "].attenuation", light->attenuation);
+
+                    command.material->shader->set("lights[" + std::to_string(index) + "].diffuse", light->diffuse);
+                    command.material->shader->set("lights[" + std::to_string(index) + "].specular", light->specular);
+
+                    if (int(light->lightType) == int(LightType::DIRECTIONAL))
+                    {
+                        command.material->shader->set("lights[" + std::to_string(index) + "].direction", lightDirection);
+                    }
+                    else if (int(light->lightType) == int(LightType::POINT))
+                    {
+                        command.material->shader->set("lights[" + std::to_string(index) + "].position", lightPosition);
+                        command.material->shader->set("lights[" + std::to_string(index) + "].attenuation", glm::vec3(light->attenuation.x, light->attenuation.y, light->attenuation.z));
+                    }
+                    else
+                    { // SPOT
+                        command.material->shader->set("lights[" + std::to_string(index) + "].direction", lightDirection);
+                        command.material->shader->set("lights[" + std::to_string(index) + "].position", lightPosition);
+                        command.material->shader->set("lights[" + std::to_string(index) + "].attenuation", glm::vec3(light->attenuation.x, light->attenuation.y, light->attenuation.z));
+                        command.material->shader->set("lights[" + std::to_string(index) + "].cone_angles", glm::vec2(light->spotAngles.x, light->spotAngles.y));
+                    }
+                    index++;
+                }
+            }
+            else
+            {
+                // set the "transform" uniform to be equal the model-view-projection matrix
+                command.material->shader->set("transform", VP * command.localToWorld);
+            }
 
             // draw the mesh
             command.mesh->draw();
@@ -262,7 +314,7 @@ namespace our
         if (postprocessMaterial)
         {
             // TODO: (Req 11) Return to the default framebuffer
-             glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+            glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
             // TODO: (Req 11) Setup the postprocess material and draw the fullscreen triangle
             postprocessMaterial->setup();
             glBindVertexArray(this->postProcessVertexArray);

@@ -73,7 +73,11 @@ namespace our
     // This function returns a new material instance based on the given type
     inline Material *createMaterialFromType(const std::string &type)
     {
-        if (type == "tinted")
+        if (type == "lighted")
+        {
+            return new LitMaterial();
+        }
+        else if (type == "tinted")
         {
             return new TintedMaterial();
         }
