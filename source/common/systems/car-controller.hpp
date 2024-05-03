@@ -143,11 +143,7 @@ namespace our
                 {
                     
                     wallPosition = glm::vec3(entity->getLocalToWorldMatrix() *glm::vec4(entity->localTransform.position, 1.0));     
-                    if (glm::distance(wallPosition, position) < glm::distance(position, min_x))
-                    {
-                        min_x = wallPosition;
-                    }
-                    
+
                     if(abs(position.x - wallPosition.x)  < 3 && abs(position.z - wallPosition.z) <= 5)
                     {                   
                         return COLLIDED_WITH_XWALL;
@@ -156,12 +152,7 @@ namespace our
                 }
                 if(entity->getComponent<zwall>())
                 {
-                    zwallPosition =glm::vec3(entity->getLocalToWorldMatrix() *glm::vec4(entity->localTransform.position, 1.0));
-
-                    if (glm::distance(wallPosition, position) < glm::distance(position, min_z))
-                    {
-                        min_z = zwallPosition;
-                    }                      
+                    zwallPosition =glm::vec3(entity->getLocalToWorldMatrix() *glm::vec4(entity->localTransform.position, 1.0));                 
                     if(abs(position.z-zwallPosition.z) < 3 && abs(position.x - wallPosition.x)  <= 5)
                     {
                         return COLLIDED_WITH_ZWALL;
