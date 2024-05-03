@@ -97,17 +97,17 @@ namespace our
 
             glm::vec3 current_sensitivity = controller->positionSensitivity;
             // If the LEFT SHIFT key is pressed, we multiply the position sensitivity by the speed up factor
-            if(app->getKeyboard().isPressed(GLFW_KEY_LEFT_SHIFT)) current_sensitivity *= controller->speedupFactor*1.2;
+            if(app->getKeyboard().isPressed(GLFW_KEY_LEFT_SHIFT)) current_sensitivity *= controller->speedupFactor*10000.00f;
 
             // We change the camera position based on the keys WS
             // S & W moves the player back and forth
-            if(app->getKeyboard().isPressed(GLFW_KEY_S)) position += front;
+            if(app->getKeyboard().isPressed(GLFW_KEY_S)) position += front * (deltaTime* 50 * (current_sensitivity.z));
             iscolide = iscollide(world,position);
-            if(iscolide) position -= front;
+            if(iscolide) position -= front * (deltaTime * 50 * current_sensitivity.z);
 
-            if(app->getKeyboard().isPressed(GLFW_KEY_W)&&!iscolide) position -= front;
+            if(app->getKeyboard().isPressed(GLFW_KEY_W)&&!iscolide) position -= front * (deltaTime * 50 * current_sensitivity.z);
             iscolide = iscollide(world,position);
-            if(iscolide) position += front;
+            if(iscolide) position += front * (deltaTime * 50 * current_sensitivity.z);
 
             // A & D moves the player left or right 
             if(app->getKeyboard().isPressed(GLFW_KEY_D)) rotation.y -= deltaTime* 200 * controller->rotationSensitivity;
@@ -133,30 +133,37 @@ namespace our
             
             auto entities = World->getEntities();
             //Loop over all walls to check if the scarecrow collided with any of them
+
+            float min_x = 100.0f;
+            float min_z = 100.0f;
             for(auto entity : entities)
             {
-                if(entity->getComponent<wall>())
+                if(entity->getComponent<zwall>())
                 {
+                    
                     wallPosition =glm::vec3(entity->getLocalToWorldMatrix() *glm::vec4(entity->localTransform.position, 1.0));
 
+                    min_x = glm::min(abs(position.x - wallPosition.x), min_x);
 
-                    if(abs(position.x-wallPosition.x)< 1.0 && abs(position.z-wallPosition.z)<1.0)
-                    {
+                    if(abs(position.x - wallPosition.x) < 3)
+                    {                   
                         return COLLIDED_WITH_XWALL;
                     }
                 }
-                if(entity->getComponent<zwall>())
+                if(entity->getComponent<wall>())
                 {
                     zwallPosition =glm::vec3(entity->getLocalToWorldMatrix() *glm::vec4(entity->localTransform.position, 1.0));
 
-
-                    if(abs(position.x-zwallPosition.x)<1.0 && abs(position.z-zwallPosition.z)<1.0)
+                    min_z = glm::min(abs(position.z - zwallPosition.z), min_z);
+                    if(abs(position.z-zwallPosition.z)<3)
                     {
+                        // printf("collision z =  %f\n", abs(position.z - zwallPosition.z));
                         return COLLIDED_WITH_ZWALL;
                     }
                 }
-
             }
+            printf("min_x = %f\n", min_x);
+            printf("min_z = %f\n", min_z);
             return NO_COLLISION;
     
         }
