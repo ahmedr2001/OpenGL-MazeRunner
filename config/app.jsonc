@@ -11,7 +11,7 @@
     },
     "scene": {
         "renderer":{
-            "sky": "assets/textures/sky.jpg",
+            // "sky": "assets/textures/sky.jpg",
             "postprocess": "assets/shaders/postprocess/vignette.frag"
         },
         "assets": {
@@ -316,7 +316,7 @@
                   }
                 },
                 "tint": [1, 1, 1, 1],
-                "texture": "cartex2",
+                "texture": "cartex",
                 "sampler": "default"
               },
               "energy": {
@@ -355,7 +355,7 @@
           },
         "world":[
             {
-                "position": [0, 0, 0],
+                "position": [0, 5, 5],
                 "components": [
                     {
                         "type": "Camera"
@@ -365,47 +365,135 @@
                     }
                 ],
                 "children": [
-                    {
-                        "position": [1, -1, -1],
-                        "rotation": [45, 45, 0],
-                        "scale": [0.1, 0.1, 1.0],
-                        "components": [
-                            {
-                                "type": "Mesh Renderer",
-                                "mesh": "cube",
-                                "material": "metal"
-                            }
-                        ]
-                    } 
-                ]
-            },
-            {
-                "rotation": [-45, 0, 0],
-                "components": [
-                    {
+                  {
+                    "position": [0, -6, -7],
+                    "name": "player",
+                    "rotation": [0, 180, 0],
+                    "scale": [0.03, 0.03, 0.03],
+                    "components": [
+                      {
                         "type": "Mesh Renderer",
-                        "mesh": "monkey",
-                        "material": "monkey"
-                    },
-                    {
-                        "type": "Movement",
-                        "linearVelocity": [0, 0.1, 0],
-                        "angularVelocity": [0, 45, 0]
-                    }
+                        "mesh": "car",
+                        "material": "carMaterial2"
+                      }
+                    ]
+                  }
                 ]
             },
+            // {
+            //     "rotation": [-45, 0, 0],
+            //     "components": [
+            //         {
+            //             "type": "Mesh Renderer",
+            //             "mesh": "monkey",
+            //             "material": "monkey"
+            //         },
+            //         {
+            //             "type": "Movement",
+            //             "linearVelocity": [0, 0.1, 0],
+            //             "angularVelocity": [0, 45, 0]
+            //         }
+            //     ]
+            // },
+
+
+            // ! First step
+              
+            // {
+            //     "position": [0, -1, 0],
+            //     "rotation": [-90, 0, 0],
+            //     "scale": [5, 5, 1],
+            //     "components": [
+            //         {
+            //             "type": "Mesh Renderer",
+            //             "mesh": "plane",
+            //             "material": "grass"
+            //         }
+            //     ]
+            // },
+            // {
+            //     "position": [0, 1, 5],
+            //     "rotation": [0, 0, 0],
+            //     "scale": [5, 5, 2],
+            //     "components": [
+            //         {
+            //             "type": "Mesh Renderer",
+            //             "mesh": "plane",
+            //             "material": "buildingMaterial"
+            //         }
+            //     ]
+            // },
+            // {
+            //     "position": [0, 1, -5],
+            //     "rotation": [0, 0, 0],
+            //     "scale": [5, 5, 2],
+            //     "components": [
+            //         {
+            //             "type": "Mesh Renderer",
+            //             "mesh": "plane",
+            //             "material": "buildingMaterial"
+            //         }
+            //     ]
+            // },
+            // {
+            //     "position": [5, 1, 0],
+            //     "rotation": [0, 90, 0],
+            //     "scale": [5, 5, 2],
+            //     "components": [
+            //         {
+            //             "type": "Mesh Renderer",
+            //             "mesh": "plane",
+            //             "material": "buildingMaterial"
+            //         }
+            //     ]
+            // },
+            // {
+            //     "position": [-5, 1, 0],
+            //     "rotation": [0, 90, 0],
+            //     "scale": [5, 5, 2],
+            //     "components": [
+            //         {
+            //             "type": "Mesh Renderer",
+            //             "mesh": "plane",
+            //             "material": "buildingMaterial"
+            //         }
+            //     ]
+            // }
+            ///////////////////////////////////////////////////////////
+              
+
+              // ! Car Comment
+              // {
+              //   "position": [0, -1, -1],
+              //   "name": "player",
+              //   "rotation": [0, 180, 0],
+              //   "scale": [0.03, 0.03, 0.03],
+              //   "components": [
+              //     {
+              //       "type": "Mesh Renderer",
+              //       "mesh": "car",
+              //       "material": "carMaterial2"
+              //     }
+              //   ]
+              // },
+
+            // !  1st horizontal walls
+
+
+            // * [0,0]
             {
-                "position": [0, -1, 0],
-                "rotation": [-90, 0, 0],
-                "scale": [5, 5, 1],
+                "position": [-10, 1, 5],
+                "rotation": [0, 0, 0],
+                "scale": [5, 5, 2],
                 "components": [
                     {
                         "type": "Mesh Renderer",
                         "mesh": "plane",
-                        "material": "grass"
+                        "material": "buildingMaterial"
                     }
                 ]
             },
+            // * [1,0]
             {
                 "position": [0, 1, 5],
                 "rotation": [0, 0, 0],
@@ -418,80 +506,7 @@
                     }
                 ]
             },
-            {
-                "position": [0, 1, -5],
-                "rotation": [0, 0, 0],
-                "scale": [5, 5, 2],
-                "components": [
-                    {
-                        "type": "Mesh Renderer",
-                        "mesh": "plane",
-                        "material": "buildingMaterial"
-                    }
-                ]
-            },
-            {
-                "position": [5, 1, 0],
-                "rotation": [0, 90, 0],
-                "scale": [5, 5, 2],
-                "components": [
-                    {
-                        "type": "Mesh Renderer",
-                        "mesh": "plane",
-                        "material": "buildingMaterial"
-                    }
-                ]
-            },
-            {
-                "position": [-5, 1, 0],
-                "rotation": [0, 90, 0],
-                "scale": [5, 5, 2],
-                "components": [
-                    {
-                        "type": "Mesh Renderer",
-                        "mesh": "plane",
-                        "material": "buildingMaterial"
-                    }
-                ]
-            },
-            ///////////////////////////////////////////////////////////
-            {
-                "position": [10, -1, 10],
-                "rotation": [-90, 0, 0],
-                "scale": [5, 5, 1],
-                "components": [
-                    {
-                        "type": "Mesh Renderer",
-                        "mesh": "plane",
-                        "material": "grass"
-                    }
-                ]
-            },
-            {
-                "position": [10, 1, 15],
-                "rotation": [0, 0, 0],
-                "scale": [5, 5, 2],
-                "components": [
-                    {
-                        "type": "Mesh Renderer",
-                        "mesh": "plane",
-                        "material": "buildingMaterial"
-                    }
-                ]
-            },
-            {
-                "position": [0, 0, 0],
-                "rotation": [0, 90, 0],
-                "scale": [1, 1, 1],
-                "components": [
-                    {
-                        "type": "Mesh Renderer",
-                        "mesh": "plane",
-                        "material": "glass"
-                    }
-                ]
-            },
-
+            // * [2,0]
             {
                 "position": [10, 1, 5],
                 "rotation": [0, 0, 0],
@@ -504,9 +519,10 @@
                     }
                 ]
             },
+            // * [3,0]
             {
-                "position": [15, 1, 10],
-                "rotation": [0, 90, 0],
+                "position": [20, 1, 5],
+                "rotation": [0, 0, 0],
                 "scale": [5, 5, 2],
                 "components": [
                     {
@@ -516,9 +532,13 @@
                     }
                 ]
             },
+            
+            // !  2nd horizontal walls
+
+            // * [2,1]
             {
-                "position": [5, 1, 10],
-                "rotation": [0, 90, 0],
+                "position": [10, 1, -5],
+                "rotation": [0, 0, 0],
                 "scale": [5, 5, 2],
                 "components": [
                     {
@@ -527,7 +547,539 @@
                         "material": "buildingMaterial"
                     }
                 ]
-            }            
+            },
+
+            // !  3rd horizontal walls
+                            
+            // * [1,2]
+            {
+                "position": [0, 1, -15],
+                "rotation": [0, 0, 0],
+                "scale": [5, 5, 2],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "plane",
+                        "material": "buildingMaterial"
+                    }
                 ]
+            },
+
+            // !  4th horizontal walls
+                            
+            // * [0,3]
+            {
+                "position": [-10, 1, -25],
+                "rotation": [0, 0, 0],
+                "scale": [5, 5, 2],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "plane",
+                        "material": "buildingMaterial"
+                    }
+                ]
+            },
+
+            // * [2,3]
+            {
+                "position": [10, 1, -25],
+                "rotation": [0, 0, 0],
+                "scale": [5, 5, 2],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "plane",
+                        "material": "buildingMaterial"
+                    }
+                ]
+            },
+
+            // !  5th horizontal walls
+
+            // * [0,4]
+            {
+              "position": [-10, 1, -35],
+              "rotation": [0, 0, 0],
+              "scale": [5, 5, 2],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "plane",
+                      "material": "buildingMaterial"
+                  }
+              ]
+            },
+
+            // * [1,4]
+            {
+              "position": [0, 1, -35],
+              "rotation": [0, 0, 0],
+              "scale": [5, 5, 2],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "plane",
+                      "material": "buildingMaterial"
+                  }
+              ]
+            },
+
+            // * [3,4]
+            {
+              "position": [20, 1, -35],
+              "rotation": [0, 0, 0],
+              "scale": [5, 5, 2],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "plane",
+                      "material": "buildingMaterial"
+                  }
+              ]
+            },
+            
+            // & ////////////////////////////////////////////
+
+
+            // !  1st vertical walls
+
+            
+            // * [0,0]
+            {
+              "position": [-15, 1, 0],
+              "rotation": [0, 90, 0],
+              "scale": [5, 5, 2],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "plane",
+                      "material": "buildingMaterial"
+                  }
+              ]
+            },
+
+            // * [0,1]            
+            {
+              "position": [-15, 1, -10],
+              "rotation": [0, 90, 0],
+              "scale": [5, 5, 2],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "plane",
+                      "material": "buildingMaterial"
+                  }
+              ]
+            },
+
+            // * [0,2]            
+            {
+              "position": [-15, 1, -20],
+              "rotation": [0, 90, 0],
+              "scale": [5, 5, 2],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "plane",
+                      "material": "buildingMaterial"
+                  }
+              ]
+            },
+
+            // * [0,3]            
+            {
+              "position": [-15, 1, -30],
+              "rotation": [0, 90, 0],
+              "scale": [5, 5, 2],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "plane",
+                      "material": "buildingMaterial"
+                  }
+              ]
+            },
+
+
+            // !  2nd vertical walls
+
+            
+            // * [1,0]
+            {
+              "position": [-5, 1, 0],
+              "rotation": [0, 90, 0],
+              "scale": [5, 5, 2],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "plane",
+                      "material": "buildingMaterial"
+                  }
+              ]
+            },
+
+            // * [1,1]
+            {
+              "position": [-5, 1, -10],
+              "rotation": [0, 90, 0],
+              "scale": [5, 5, 2],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "plane",
+                      "material": "buildingMaterial"
+                  }
+              ]
+            },
+
+
+            // !  3rd vertical walls
+
+            
+            // * [2,0]
+            {
+              "position": [5, 1, 0],
+              "rotation": [0, 90, 0],
+              "scale": [5, 5, 2],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "plane",
+                      "material": "buildingMaterial"
+                  }
+              ]
+            },
+
+            // * [2,2]
+            {
+              "position": [5, 1, -20],
+              "rotation": [0, 90, 0],
+              "scale": [5, 5, 2],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "plane",
+                      "material": "buildingMaterial"
+                  }
+              ]
+            },
+
+
+            // !  4th vertical walls
+
+            
+            // * [3,1]
+            {
+              "position": [15, 1, -10],
+              "rotation": [0, 90, 0],
+              "scale": [5, 5, 2],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "plane",
+                      "material": "buildingMaterial"
+                  }
+              ]
+            },
+
+            
+            
+            // !  4th vertical walls
+            
+            
+            // * [4,0]
+            {
+              "position": [25, 1, 0],
+              "rotation": [0, 90, 0],
+              "scale": [5, 5, 2],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "plane",
+                      "material": "buildingMaterial"
+                  }
+              ]
+            },
+
+            // * [4,1]
+            {
+              "position": [25, 1, -10],
+              "rotation": [0, 90, 0],
+              "scale": [5, 5, 2],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "plane",
+                      "material": "buildingMaterial"
+                  }
+              ]
+            },
+            
+            // * [4,2]            
+            {
+              "position": [25, 1, -20],
+              "rotation": [0, 90, 0],
+              "scale": [5, 5, 2],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "plane",
+                      "material": "buildingMaterial"
+                  }
+              ]
+            },
+
+            // * [4,3]            
+            {
+              "position": [25, 1, -30],
+              "rotation": [0, 90, 0],
+              "scale": [5, 5, 2],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "plane",
+                      "material": "buildingMaterial"
+                  }
+              ]
+            },
+
+            // ! Grass for every square in the maze
+
+            // ! 1st row grass
+
+            // * [0,0]
+            {
+                "position": [-10, -1, 0],
+                "rotation": [-90, 0, 0],
+                "scale": [5, 5, 1],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "plane",
+                        "material": "grass"
+                    }
+                ]
+            },
+            
+            // * [1,0]
+            {
+                "position": [0, -1, 0],
+                "rotation": [-90, 0, 0],
+                "scale": [5, 5, 1],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "plane",
+                        "material": "grass"
+                    }
+                ]
+            },
+
+            // * [2,0]
+            {
+                "position": [10, -1, 0],
+                "rotation": [-90, 0, 0],
+                "scale": [5, 5, 1],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "plane",
+                        "material": "grass"
+                    }
+                ]
+            },
+
+            // * [3,0]
+            {
+                "position": [20, -1, 0],
+                "rotation": [-90, 0, 0],
+                "scale": [5, 5, 1],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "plane",
+                        "material": "grass"
+                    }
+                ]
+            },
+
+
+            // ! 2nd row grass
+
+            // * [0,1]
+            {
+              "position": [-10, -1, -10],
+              "rotation": [-90, 0, 0],
+              "scale": [5, 5, 1],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "plane",
+                      "material": "grass"
+                  }
+              ]
+          },
+          
+          // * [1,1]
+          {
+              "position": [0, -1, -10],
+              "rotation": [-90, 0, 0],
+              "scale": [5, 5, 1],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "plane",
+                      "material": "grass"
+                  }
+              ]
+          },
+
+          // * [2,1]
+          {
+              "position": [10, -1, -10],
+              "rotation": [-90, 0, 0],
+              "scale": [5, 5, 1],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "plane",
+                      "material": "grass"
+                  }
+              ]
+          },
+
+          // * [3,1]
+          {
+              "position": [20, -1, -10],
+              "rotation": [-90, 0, 0],
+              "scale": [5, 5, 1],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "plane",
+                      "material": "grass"
+                  }
+              ]
+          },
+
+
+            // ! 3rd row grass
+
+            // * [0,2]
+            {
+              "position": [-10, -1, -20],
+              "rotation": [-90, 0, 0],
+              "scale": [5, 5, 1],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "plane",
+                      "material": "grass"
+                  }
+              ]
+          },
+          
+          // * [1,2]
+          {
+              "position": [0, -1, -20],
+              "rotation": [-90, 0, 0],
+              "scale": [5, 5, 1],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "plane",
+                      "material": "grass"
+                  }
+              ]
+          },
+
+          // * [2,2]
+          {
+              "position": [10, -1, -20],
+              "rotation": [-90, 0, 0],
+              "scale": [5, 5, 1],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "plane",
+                      "material": "grass"
+                  }
+              ]
+          },
+
+          // * [3,2]
+          {
+              "position": [20, -1, -20],
+              "rotation": [-90, 0, 0],
+              "scale": [5, 5, 1],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "plane",
+                      "material": "grass"
+                  }
+              ]
+          },
+          
+
+            // ! 4th row grass
+
+            // * [0,3]
+            {
+              "position": [-10, -1, -30],
+              "rotation": [-90, 0, 0],
+              "scale": [5, 5, 1],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "plane",
+                      "material": "grass"
+                  }
+              ]
+          },
+          
+          // * [1,3]
+          {
+              "position": [0, -1, -30],
+              "rotation": [-90, 0, 0],
+              "scale": [5, 5, 1],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "plane",
+                      "material": "grass"
+                  }
+              ]
+          },
+
+          // * [2,3]
+          {
+              "position": [10, -1, -30],
+              "rotation": [-90, 0, 0],
+              "scale": [5, 5, 1],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "plane",
+                      "material": "grass"
+                  }
+              ]
+          },
+
+          // * [3,3]
+          {
+              "position": [20, -1, -30],
+              "rotation": [-90, 0, 0],
+              "scale": [5, 5, 1],
+              "components": [
+                  {
+                      "type": "Mesh Renderer",
+                      "mesh": "plane",
+                      "material": "grass"
+                  }
+              ]
+          }          
+      ]
     }
 }
