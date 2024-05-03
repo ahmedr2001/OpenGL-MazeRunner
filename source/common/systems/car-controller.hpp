@@ -58,9 +58,11 @@ namespace our
             Entity* entity = camera->getOwner();
 
 
+
             // We get a reference to the entity's position and rotation
             glm::vec3& position = entity->localTransform.position;
             glm::vec3& rotation = entity->localTransform.rotation;
+
 
             // If the left mouse button is pressed, we get the change in the mouse location
             // and use it to update the camera rotation
@@ -128,6 +130,7 @@ namespace our
         // Collision detection handling
         int iscollide(World*World, glm::vec3& position){
 
+            glm::vec3 carPosition;
             glm::vec3 wallPosition;
             glm::vec3 zwallPosition;
             
@@ -141,20 +144,40 @@ namespace our
             {
                 if(entity->getComponent<wall>())
                 {
+                    wallPosition = entity->localTransform.position;
+//                    wallPosition = glm::vec3(entity->getLocalToWorldMatrix() * glm::vec4(entity->localTransform.position, 1.0));
+//                    carPosition = glm::vec3(entity->getLocalToWorldMatrix() * glm::vec4(position, 1.0));
+//                    std::cout<<"Wall X: " << wallPosition.x <<"\n";
+//                    std::cout<<"Car X: " << carPosition.x << "\n";
+//                    if (glm::distance(wallPosition, position) < glm::distance(position, min_x))
+//                    {
+//                        min_x = wallPosition;
+//                    }
                     
-                    wallPosition = glm::vec3(entity->getLocalToWorldMatrix() *glm::vec4(entity->localTransform.position, 1.0));     
-
-                    if(abs(position.x - wallPosition.x)  < 3 && abs(position.z - wallPosition.z) <= 5)
-                    {                   
+                    if(abs(position.x - wallPosition.x)  <= 5 && abs(position.z - wallPosition.z) <= 1)
+                    {
+                        std::cout<<"Car position X: " << position.x << " Car position Z: " << position.z<<"\n";
+                        std::cout<<"Wall position X: " << wallPosition.x <<" Wall position Z: "<< wallPosition.z<<"\n";
+                        std::cout<<"Collided with XWALL\n";
                         return COLLIDED_WITH_XWALL;
                     }
 
                 }
                 if(entity->getComponent<zwall>())
                 {
-                    zwallPosition =glm::vec3(entity->getLocalToWorldMatrix() *glm::vec4(entity->localTransform.position, 1.0));                 
-                    if(abs(position.z-zwallPosition.z) < 3 && abs(position.x - wallPosition.x)  <= 5)
+                    zwallPosition = entity->localTransform.position;
+//                    std::cout<<"ZWall Z: " << zwallPosition.z<< "\n";
+//                    zwallPosition =glm::vec3(entity->getLocalToWorldMatrix() *glm::vec4(entity->localTransform.position, 1.0));
+//                    carPosition = glm::vec3(entity->getLocalToWorldMatrix() * glm::vec4(position, 1.0));
+//                    if (glm::distance(wallPosition, position) < glm::distance(position, min_z))
+//                    {
+//                        min_z = zwallPosition;
+//                    }
+                    if(abs(position.z-zwallPosition.z) <= 5 && abs(position.x - zwallPosition.x)  <= 1)
                     {
+                        std::cout<<"Car position X: " << position.x << " Car position Z: " << position.z<<"\n";
+                        std::cout<<"Wall position X: " << zwallPosition.x <<" Wall position Z: "<< zwallPosition.z<<"\n";
+                        std::cout<<"Collided with ZWALL\n";
                         return COLLIDED_WITH_ZWALL;
                     }
                     
