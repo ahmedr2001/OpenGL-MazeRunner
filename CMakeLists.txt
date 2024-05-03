@@ -75,6 +75,8 @@ set(COMMON_SOURCES
         source/common/components/mesh-renderer.cpp
         source/common/components/free-camera-controller.hpp
         source/common/components/free-camera-controller.cpp
+        source/common/components/car-controller.hpp
+        source/common/components/car-controller.cpp
         source/common/components/movement.hpp
         source/common/components/movement.cpp
         source/common/components/component-deserializer.hpp
@@ -85,6 +87,14 @@ set(COMMON_SOURCES
         source/common/systems/forward-renderer.cpp
         source/common/systems/free-camera-controller.hpp
         source/common/systems/movement.hpp
+        source/common/systems/car-controller.hpp
+
+        source/common/components/wall.hpp
+        source/common/components/wall.cpp
+        source/common/components/zwall.hpp
+        source/common/components/zwall.cpp
+        source/common/components/car.hpp
+        source/common/components/car.cpp
 )
 
 # Define the directories in which to search for the included headers
