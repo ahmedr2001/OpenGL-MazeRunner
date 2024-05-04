@@ -20,7 +20,14 @@ class Playstate: public our::State {
 
     void onInitialize() override {
         // First of all, we get the scene configuration from the app config
-        auto& config = getApp()->getConfig()["scene"];
+        std::string config_path = "config/play_wall_e.jsonc";
+        std::ifstream file_in(config_path);
+        if(!file_in){
+            std::cerr << "Couldn't open file: " << config_path << std::endl;
+            return;
+        }
+        nlohmann::json app_config = nlohmann::json::parse(file_in, nullptr, true, true);
+        auto& config = app_config["scene"];
         // If we have assets in the scene config, we deserialize them
         if(config.contains("assets")){
             our::deserializeAllAssets(config["assets"]);
