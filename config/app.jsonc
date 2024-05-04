@@ -11,7 +11,7 @@
   },
   "scene": {
       "renderer":{
-          "sky": "assets/textures/sky.jpg",
+          "sky": "assets/textures/sky4.jpg",
           "postprocess": "assets/shaders/postprocess/vignette.frag"
       },
       "assets": {
@@ -42,7 +42,9 @@
             "wall3": "assets/textures/ConcreteWall.png",
             "wall4": "assets/textures/rusty-detailed-old-texture-background.jpg",
             "floor1": "assets/textures/Stones_Tileable.png",
-            "floor2": "assets/textures/dirt_floor.jpg"
+            "floor2": "assets/textures/dirt_floor.jpg",
+            "plant" : "assets/textures/plant.jpg",
+            "trash_bag":"assets/textures/trash_bag.jpg" 
           },
           "meshes": {
             "cube": "assets/models/cube.obj",
@@ -52,7 +54,9 @@
             "car1": "assets/models/wall-e.obj",
             "car2": "assets/models/EVE.obj",
             "car3": "assets/models/casino_car.obj",                        
-            "wall" : "assets/models/concrete_wall.obj"
+            "wall" : "assets/models/concrete_wall.obj",
+            "plant" : "assets/models/plant.obj",
+            "trash_bag": "assets/models/trash_bag.obj"
           },
           "samplers": {
             "default": {},
@@ -262,6 +266,36 @@
               "tint": [1, 1, 1, 1],
               "texture": "floor2",
               "sampler": "default"
+            },
+            "plantMaterial": {
+              "type": "textured",
+              "shader": "textured",
+              "pipelineState": {
+                "faceCulling": {
+                  "enabled": false
+                },
+                "depthTesting": {
+                  "enabled": true
+                }
+              },
+              "tint": [1, 1, 1, 1],
+              "texture": "plant",
+              "sampler": "default"
+            },
+            "trashMaterial": {
+              "type": "textured",
+              "shader": "textured",
+              "pipelineState": {
+                "faceCulling": {
+                  "enabled": false
+                },
+                "depthTesting": {
+                  "enabled": true
+                }
+              },
+              "tint": [1, 1, 1, 1],
+              "texture": "trash_bag",
+              "sampler": "default"
             }
           }
         },
@@ -333,9 +367,8 @@
                 }
                ]
             },
-
+            
             // !  0 horizontal walls
-
 
             // * [0,0]
             {
