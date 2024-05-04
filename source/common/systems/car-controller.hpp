@@ -45,6 +45,12 @@ namespace our
         void update(World* world, float deltaTime) {
             // First of all, we search for an entity containing both a CameraComponent and a FreeCameraControllerComponent
             // As soon as we find one, we break
+
+
+            if(app->getMouse().isPressed(GLFW_MOUSE_BUTTON_1)){
+                return;
+            }
+
             Car* camera = nullptr;
             CarControllerComponent *controller = nullptr;
             for(auto entity : world->getEntities()){
@@ -62,15 +68,6 @@ namespace our
             // We get a reference to the entity's position and rotation
             glm::vec3& position = entity->localTransform.position;
             glm::vec3& rotation = entity->localTransform.rotation;
-
-
-            // If the left mouse button is pressed, we get the change in the mouse location
-            // and use it to update the camera rotation
-            if(app->getMouse().isPressed(GLFW_MOUSE_BUTTON_1)){
-                glm::vec2 delta = app->getMouse().getMouseDelta();
-                //rotation.x -= delta.y * controller->rotationSensitivity; // The y-axis controls the pitch
-                //rotation.y -= delta.x * controller->rotationSensitivity; // The x-axis controls the yaw
-            }
 
             // We prevent the pitch from exceeding a certain angle from the XZ plane to prevent gimbal locks
             if(rotation.x < -glm::half_pi<float>() * 0.99f) rotation.x = -glm::half_pi<float>() * 0.99f;
@@ -99,21 +96,21 @@ namespace our
 
             glm::vec3 current_sensitivity = controller->positionSensitivity;
             // If the LEFT SHIFT key is pressed, we multiply the position sensitivity by the speed up factor
-            if(app->getKeyboard().isPressed(GLFW_KEY_LEFT_SHIFT)) current_sensitivity *= controller->speedupFactor*10000.00f;
+            if(app->getKeyboard().isPressed(GLFW_KEY_LEFT_SHIFT)) current_sensitivity *= controller->speedupFactor*1.2f;
 
             // We change the camera position based on the keys WS
             // S & W moves the player back and forth
-            if(app->getKeyboard().isPressed(GLFW_KEY_S)) position += front * (deltaTime* 50 * (current_sensitivity.z));
+            if(app->getKeyboard().isPressed(GLFW_KEY_S)) position += front * (deltaTime * (current_sensitivity.z));
             iscolide = iscollide(world,position);
-            if(iscolide) position -= front * (deltaTime * 50 * current_sensitivity.z);
+            if(iscolide) position -= front * (deltaTime * current_sensitivity.z);
 
-            if(app->getKeyboard().isPressed(GLFW_KEY_W)&&!iscolide) position -= front * (deltaTime * 50 * current_sensitivity.z);
+            if(app->getKeyboard().isPressed(GLFW_KEY_W)&&!iscolide) position -= front * (deltaTime * current_sensitivity.z);
             iscolide = iscollide(world,position);
-            if(iscolide) position += front * (deltaTime * 50 * current_sensitivity.z);
+            if(iscolide) position += front * (deltaTime * current_sensitivity.z);
 
             // A & D moves the player left or right 
-            if(app->getKeyboard().isPressed(GLFW_KEY_D)) rotation.y -= deltaTime* 200 * controller->rotationSensitivity;
-            if(app->getKeyboard().isPressed(GLFW_KEY_A)) rotation.y += deltaTime* 200 * controller->rotationSensitivity;
+            if(app->getKeyboard().isPressed(GLFW_KEY_D)) rotation.y -= deltaTime* 100 * controller->rotationSensitivity;
+            if(app->getKeyboard().isPressed(GLFW_KEY_A)) rotation.y += deltaTime* 100 * controller->rotationSensitivity;
 
         }
 
@@ -145,7 +142,7 @@ namespace our
                 if(entity->getComponent<wall>())
                 {
                     wallPosition = entity->localTransform.position;
-                    if(abs(position.x - wallPosition.x)  <= 5 && abs(position.z - wallPosition.z) <= 0.5)
+                    if(abs(position.x - wallPosition.x)  <= 5.7 && abs(position.z - wallPosition.z) <= 1)
                     {
                         return COLLIDED_WITH_XWALL;
                     }
@@ -155,7 +152,7 @@ namespace our
                 {
                     zwallPosition = entity->localTransform.position;
 
-                    if(abs(position.z-zwallPosition.z) <= 5 && abs(position.x - zwallPosition.x)  <= 0.5)
+                    if(abs(position.z-zwallPosition.z) <= 5.7 && abs(position.x - zwallPosition.x)  <= 1)
                     {
 
                         return COLLIDED_WITH_ZWALL;
