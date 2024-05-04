@@ -99,7 +99,7 @@ namespace our
             glActiveTexture(GL_TEXTURE2);
             ambientOcclusion->bind();
             sampler->bind(2);
-            shader->set("material.ambientOcclusion", 2);
+            shader->set("material.ambient_cclusion", 2);
         }
         if (roughness)
         {
