@@ -19,10 +19,7 @@ namespace our
     public:
         LightType lightType; // the type of the light
 
-        // Phong reflection
-        glm::vec3 diffuse;  // simulates light scatters in all directions equally (Light . Normal)
-        glm::vec3 specular; // simulates reflection at angle of reflection only
-        glm::vec3 ambient;  // simulates light from all directions (= const number from all directions)
+        glm::vec3 color;
 
         glm::vec3 position;  // For Point, Spot Lights (as directional emanates from a distant source)
         glm::vec3 direction; // For Directional, Spot Lights (as point illuminate in all directions)

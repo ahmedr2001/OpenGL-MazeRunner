@@ -4,14 +4,12 @@
 #define POINT 1
 #define SPOT 2
 
-// M_TODO: they have different light struct
 struct Light {
     int type;
     vec3 position; // for POINT and SPOT lights (to calc distance)
     vec3 direction; // for DIRECTIONAL and SPOT lights || direction of light (from light to)
     
-    vec3 diffuse;
-    vec3 specular;
+    vec3 color;
 
     vec3 attenuation;
     vec2 cone_angles; // for SPOT light
@@ -112,10 +110,10 @@ void main() {
             }
         }
 
-        vec3 computed_diffuse = light.diffuse * diffuse * lambert(normal, world_to_light_dir);
+        vec3 computed_diffuse = light.color * diffuse * lambert(normal, world_to_light_dir);
         vec3 reflected = reflect(-world_to_light_dir, normal);
 
-        vec3 computed_specular = light.specular * specular * phong(reflected, view, shininess);
+        vec3 computed_specular = light.color * specular * phong(reflected, view, shininess);
 
         color += (computed_diffuse + computed_specular) * attenuation;
     }
