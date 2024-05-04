@@ -10,7 +10,7 @@ namespace our
         if (!data.is_object())
             return;
 
-        std::string lightTypeStr = data.value("lightType", "directional");
+        std::string lightTypeStr = data.value("lightType", "");
 
         if (lightTypeStr == "directional")
         {

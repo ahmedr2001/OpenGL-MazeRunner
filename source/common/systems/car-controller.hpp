@@ -58,11 +58,9 @@ namespace our
             Entity* entity = camera->getOwner();
 
 
-
             // We get a reference to the entity's position and rotation
             glm::vec3& position = entity->localTransform.position;
             glm::vec3& rotation = entity->localTransform.rotation;
-
 
             // If the left mouse button is pressed, we get the change in the mouse location
             // and use it to update the camera rotation
@@ -130,7 +128,6 @@ namespace our
         // Collision detection handling
         int iscollide(World*World, glm::vec3& position){
 
-            glm::vec3 carPosition;
             glm::vec3 wallPosition;
             glm::vec3 zwallPosition;
             
@@ -144,20 +141,20 @@ namespace our
             {
                 if(entity->getComponent<wall>())
                 {
-                    wallPosition = entity->localTransform.position;
-                    if(abs(position.x - wallPosition.x)  <= 5 && abs(position.z - wallPosition.z) <= 0.5)
-                    {
+                    
+                    wallPosition = glm::vec3(entity->getLocalToWorldMatrix() *glm::vec4(entity->localTransform.position, 1.0));     
+
+                    if(abs(position.x - wallPosition.x)  < 3 && abs(position.z - wallPosition.z) <= 5)
+                    {                   
                         return COLLIDED_WITH_XWALL;
                     }
 
                 }
                 if(entity->getComponent<zwall>())
                 {
-                    zwallPosition = entity->localTransform.position;
-
-                    if(abs(position.z-zwallPosition.z) <= 5 && abs(position.x - zwallPosition.x)  <= 0.5)
+                    zwallPosition =glm::vec3(entity->getLocalToWorldMatrix() *glm::vec4(entity->localTransform.position, 1.0));                 
+                    if(abs(position.z-zwallPosition.z) < 3 && abs(position.x - wallPosition.x)  <= 5)
                     {
-
                         return COLLIDED_WITH_ZWALL;
                     }
                     

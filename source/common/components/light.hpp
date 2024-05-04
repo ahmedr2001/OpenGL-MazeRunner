@@ -18,6 +18,7 @@ namespace our
     {
     public:
         LightType lightType; // the type of the light
+        glm::vec4 color; // light color
 
         // Phong reflection
         glm::vec3 diffuse;  // simulates light scatters in all directions equally (Light . Normal)
