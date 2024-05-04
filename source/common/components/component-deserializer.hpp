@@ -5,8 +5,11 @@
 #include "mesh-renderer.hpp"
 #include "free-camera-controller.hpp"
 #include "movement.hpp"
-#include "light.hpp"
-
+#include "wall.hpp"
+#include "zwall.hpp"
+#include "car.hpp"
+#include "car-controller.hpp"
+#include"light.hpp"
 namespace our
 {
 
@@ -33,12 +36,22 @@ namespace our
         {
             component = entity->addComponent<MeshRendererComponent>();
         }
-        else if (type == LightComponent::getID())
-        {
+        else if (type == wall::getID()) {
+            component = entity->addComponent<wall>();
+        }
+        else if (type == zwall::getID()) {
+            component = entity->addComponent<zwall>();
+        }
+        else if(type == LightComponent::getID()){
             component = entity->addComponent<LightComponent>();
+        }
+        else if (type == Car::getID()) {
+            component = entity->addComponent<Car>();
+        }
+        else if (type == CarControllerComponent::getID()) {
+            component = entity->addComponent<CarControllerComponent>();
         }
         if (component)
             component->deserialize(data);
     }
-
 }

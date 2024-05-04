@@ -8,12 +8,15 @@ struct Light {
     int type;
     vec3 position; // for POINT and SPOT lights (to calc distance)
     vec3 direction; // for DIRECTIONAL and SPOT lights || direction of light (from light to)
-    
-    vec3 color;
-
+    vec3 color; // color of light (for diffuse, specular)
     vec3 attenuation;
     vec2 cone_angles; // for SPOT light
 };
+
+#define MAX_LIGHTS 8
+
+uniform Light lights[MAX_LIGHTS];
+uniform int light_count;
 
 // Defines sky color at 3 different levels
 struct Sky {
