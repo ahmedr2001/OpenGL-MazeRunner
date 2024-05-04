@@ -11,7 +11,7 @@
 #include <array>
 
 // This struct is used to store the location and size of a button and the code it should execute when clicked
-struct Button {
+struct WinButton {
     // The position (of the top-left corner) of the button and its size in pixels
     glm::vec2 position, size;
     // whether this button is currently selected
@@ -23,20 +23,20 @@ struct Button {
     // This is used to check if the mouse is hovering over the button.
     bool isInside(const glm::vec2& v) const {
         return position.x <= v.x && position.y <= v.y &&
-            v.x <= position.x + size.x &&
-            v.y <= position.y + size.y;
+               v.x <= position.x + size.x &&
+               v.y <= position.y + size.y;
     }
 
     // This function returns the local to world matrix to transform a rectangle of size 1x1
     // (and whose top-left corner is at the origin) to be the button.
     glm::mat4 getLocalToWorld() const {
-        return glm::translate(glm::mat4(1.0f), glm::vec3(position.x, position.y, 0.0f)) * 
-            glm::scale(glm::mat4(1.0f), glm::vec3(size.x, size.y, 1.0f));
+        return glm::translate(glm::mat4(1.0f), glm::vec3(position.x, position.y, 0.0f)) *
+               glm::scale(glm::mat4(1.0f), glm::vec3(size.x, size.y, 1.0f));
     }
 };
 
 // This state shows how to use some of the abstractions we created to make a menu.
-class Menustate: public our::State {
+class Winstate: public our::State {
 
     // A meterial holding the menu shader and the menu texture to draw
     our::TexturedMaterial* menuMaterial;
@@ -46,12 +46,8 @@ class Menustate: public our::State {
     our::Mesh* rectangle;
     // A variable to record the time since the state is entered (it will be used for the fading effect).
     float time;
-    // Variables to record the selected level and car
-    int selectedLevel, selectedCar;
     // An array of the button that we can interact with
-    std::array<Button, 3> buttons;
-    // An array of the play states to change into
-    std::array<std::string, 2> playStates;
+    std::array<WinButton, 2> buttons;
 
     void onInitialize() override {
         // First, we create a material for the menu's background
@@ -62,7 +58,7 @@ class Menustate: public our::State {
         menuMaterial->shader->attach("assets/shaders/textured.frag", GL_FRAGMENT_SHADER);
         menuMaterial->shader->link();
         // Then we load the menu texture
-        menuMaterial->texture = our::texture_utils::loadImage("assets/textures/menu-wall-e.jpg");
+        menuMaterial->texture = our::texture_utils::loadImage("assets/textures/win-screen-wall-e.jpg");
         // Initially, the menu material will be black, then it will fade in
         menuMaterial->tint = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
 
@@ -86,23 +82,16 @@ class Menustate: public our::State {
         // Note that the texture coordinates at the origin is (0.0, 1.0) since we will use the 
         // projection matrix to make the origin at the the top-left corner of the screen.
         rectangle = new our::Mesh({
-            {{0.0f, 0.0f, 0.0f}, {255, 255, 255, 255}, {0.0f, 1.0f}, {0.0f, 0.0f, 1.0f}},
-            {{1.0f, 0.0f, 0.0f}, {255, 255, 255, 255}, {1.0f, 1.0f}, {0.0f, 0.0f, 1.0f}},
-            {{1.0f, 1.0f, 0.0f}, {255, 255, 255, 255}, {1.0f, 0.0f}, {0.0f, 0.0f, 1.0f}},
-            {{0.0f, 1.0f, 0.0f}, {255, 255, 255, 255}, {0.0f, 0.0f}, {0.0f, 0.0f, 1.0f}},
-        },{
-            0, 1, 2, 2, 3, 0,
-        });
+                                          {{0.0f, 0.0f, 0.0f}, {255, 255, 255, 255}, {0.0f, 1.0f}, {0.0f, 0.0f, 1.0f}},
+                                          {{1.0f, 0.0f, 0.0f}, {255, 255, 255, 255}, {1.0f, 1.0f}, {0.0f, 0.0f, 1.0f}},
+                                          {{1.0f, 1.0f, 0.0f}, {255, 255, 255, 255}, {1.0f, 0.0f}, {0.0f, 0.0f, 1.0f}},
+                                          {{0.0f, 1.0f, 0.0f}, {255, 255, 255, 255}, {0.0f, 0.0f}, {0.0f, 0.0f, 1.0f}},
+                                  },{
+                                          0, 1, 2, 2, 3, 0,
+                                  });
 
         // Reset the time elapsed since the state is entered.
         time = 0;
-
-        // Reset selections
-        selectedCar = -1, selectedLevel = -1;
-
-        // Fill the playStates array
-        std::string walleState = "play_wall_e", eveState = "play_eve";
-        playStates[0] = walleState, playStates[1] = eveState;
 
         // Fill the positions, sizes and actions for the menu buttons
         // Note that we use lambda expressions to set the actions of the buttons.
@@ -112,25 +101,23 @@ class Menustate: public our::State {
         // - The argument list () which is the arguments that the lambda should receive when it is called.
         //      We leave it empty since button actions receive no input.
         // - The body {} which contains the code to be executed.
-        buttons[0].position = {300.0f, 200.f};
-        buttons[0].size = {200.0f, 80.0f};
-        buttons[0].action = [this](){this->getApp()->changeState(playStates[0]);};
+        buttons[0].position = {400.0f, 535.f};
+        buttons[0].size = {470.0f, 80.0f};
+        buttons[0].action = [this](){this->getApp()->changeState("menu");};
 
-        buttons[1].position = {800.0f, 570.0f};
-        buttons[1].size = {120.0f, 80.0f};
-        buttons[1].action = [this](){this->getApp()->changeState(playStates[1]);};
-
-        // exit button
-        buttons[2].position = {1030.0f, 650.0f};
-        buttons[2].size = {235.0f, 50.0f};
-        buttons[2].action = [this](){this->getApp()->close();};
+        buttons[1].position = {705.0f, 655.0f};
+        buttons[1].size = {220.0f, 55.0f};
+        buttons[1].action = [this](){this->getApp()->close();};
     }
 
     void onDraw(double deltaTime) override {
         // Get a reference to the keyboard object
         auto& keyboard = getApp()->getKeyboard();
 
-        if(keyboard.justPressed(GLFW_KEY_ESCAPE)) {
+        if (keyboard.justPressed(GLFW_KEY_SPACE)) {
+            getApp()->changeState("menu");
+        }
+        else if(keyboard.justPressed(GLFW_KEY_ESCAPE)) {
             // If the escape key is pressed in this frame, exit the game
             getApp()->close();
         }
@@ -181,7 +168,7 @@ class Menustate: public our::State {
                 rectangle->draw();
             }
         }
-        
+
     }
 
     void onDestroy() override {

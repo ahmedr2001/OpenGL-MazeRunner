@@ -362,7 +362,16 @@
                       },
                       {
                           "type": "Free Camera Controller"
-                      }
+                      },
+                      {
+                                              "type": "Light",
+                                              "position": [0, 1,1],
+                                              "typeOfLight": "point",
+                                              "diffuse": [1,0,0],
+                                              "specular": [1,0,0],
+                                              "attenuation": [0.01, 0.01, 0.01]
+
+                                            }
                   ]
                 }
                ]

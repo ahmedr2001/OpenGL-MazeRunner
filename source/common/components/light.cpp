@@ -13,8 +13,10 @@ namespace our
         if (!data.is_object())
             return;
 
+
         std::string lightTypeStr = data.value("lightType", "directional");
         this->color = data.value("color", glm::vec3(1.0f,1.0f,1.0f));
+
 
         if (lightTypeStr == "directional")
         {
@@ -45,6 +47,7 @@ namespace our
             this->attenuation = data.value("attenuation", glm::vec3(1.0f,1.0f,1.0f));
             this->spotAngles = data.value("cone_angle", glm::vec2(50, 60));
         }
+
 
     }
 }
