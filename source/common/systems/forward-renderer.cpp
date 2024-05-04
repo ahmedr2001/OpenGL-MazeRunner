@@ -230,10 +230,8 @@ namespace our
                     glm::vec3 lightDirection = light->getOwner()->getLocalToWorldMatrix() * glm::vec4(0.0f, -1.0f, 0.0f, 0.0f);
 
                     command.material->shader->set("lights[" + std::to_string(index) + "].type", int(light->lightType));
-                    command.material->shader->set("lights[" + std::to_string(index) + "].attenuation", light->attenuation);
 
-                    command.material->shader->set("lights[" + std::to_string(index) + "].diffuse", light->diffuse);
-                    command.material->shader->set("lights[" + std::to_string(index) + "].specular", light->specular);
+                    command.material->shader->set("lights[" + std::to_string(index) + "].color", light->color);
 
                     if (int(light->lightType) == int(LightType::DIRECTIONAL))
                     {

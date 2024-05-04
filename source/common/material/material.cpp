@@ -99,7 +99,7 @@ namespace our
             glActiveTexture(GL_TEXTURE2);
             ambientOcclusion->bind();
             sampler->bind(2);
-            shader->set("material.ambientOcclusion", 2);
+            shader->set("material.ambient_cclusion", 2);
         }
         if (roughness)
         {
@@ -126,7 +126,7 @@ namespace our
 
         albedo = AssetLoader<Texture2D>::get(data.value("albedo", ""));
         specular = AssetLoader<Texture2D>::get(data.value("specular", ""));
-        ambientOcclusion = AssetLoader<Texture2D>::get(data.value("ambientOcclusion", ""));
+        ambientOcclusion = AssetLoader<Texture2D>::get(data.value("ambient_occlusion", ""));
         roughness = AssetLoader<Texture2D>::get(data.value("roughness", ""));
         emissive = AssetLoader<Texture2D>::get(data.value("emissive", ""));
     }
