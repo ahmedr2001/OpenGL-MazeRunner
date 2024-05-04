@@ -68,6 +68,7 @@ float phong(vec3 reflected, vec3 view, float shininess) {
 
 void main() {
     vec3 normal = normalize(fs_in.normal); // normal vector
+    vec3 normal = normalize(fs_in.normal); // normal vector
     vec3 view = normalize(fs_in.view);
 
     // Sky light effect 
@@ -105,6 +106,8 @@ void main() {
 
             attenuation = 1.0 / dot(light.attenuation, vec3(distance_to_light*distance_to_light, distance_to_light, 1.0)); // Attenuation (1,0,0) decreases with ( d^2 ), (0,1,0) diminishes linearly with ( d ), (0,0,1) and remains constant otherwise.
             if(light.type == SPOT){
+                float angle = acos(dot(light.direction, -world_to_light_dir)); // get angle between light_vector and world_to_light vector
+                attenuation *= smoothstep(light.cone_angles.y, light.cone_angles.x, angle); // change attenuation from outer angle to inner angle moving by step angle
                 float angle = acos(dot(light.direction, -world_to_light_dir)); // get angle between light_vector and world_to_light vector
                 attenuation *= smoothstep(light.cone_angles.y, light.cone_angles.x, angle); // change attenuation from outer angle to inner angle moving by step angle
             }
