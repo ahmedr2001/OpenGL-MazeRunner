@@ -10,7 +10,7 @@ namespace our
         if (!data.is_object())
             return;
 
-        std::string lightTypeStr = data.value("lightType", "directional");
+        std::string lightTypeStr = data.value("typeOfLight", "directional");
 
         if (lightTypeStr == "directional")
         {
@@ -38,6 +38,6 @@ namespace our
 
         this->diffuse = data.value("diffuse", glm::vec3(1.0f, 0.98f, 0.92f));
         this->specular = data.value("specular", glm::vec3(1.0f));
-        this->ambient = data.value("ambient", glm::vec3(0.1f, 0.2f, 0.3f));
+        this->ambient = data.value("ambient", glm::vec3(1.0f, 0.2f, 0.3f));
     }
 }

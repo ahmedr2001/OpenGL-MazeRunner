@@ -6,7 +6,9 @@
 #include <application.hpp>
 
 #include "states/menu-state.hpp"
-#include "states/play-state.hpp"
+#include "states/play-wall-e-state.hpp"
+#include "states/play-eve-state.hpp"
+#include "states/win-state.hpp"
 #include "states/shader-test-state.hpp"
 #include "states/mesh-test-state.hpp"
 #include "states/transform-test-state.hpp"
@@ -40,10 +42,12 @@ int main(int argc, char** argv) {
 
     // Create the application
     our::Application app(app_config);
-    
+
     // Register all the states of the project in the application
     app.registerState<Menustate>("menu");
-    app.registerState<Playstate>("play");
+    app.registerState<Playstate>("play_wall_e");
+    app.registerState<PlaystateEve>("play_eve");
+    app.registerState<Winstate>("win");
     app.registerState<ShaderTestState>("shader-test");
     app.registerState<MeshTestState>("mesh-test");
     app.registerState<TransformTestState>("transform-test");
@@ -58,7 +62,7 @@ int main(int argc, char** argv) {
         app.changeState(app_config["start-scene"].get<std::string>());
     }
 
-    // Finally run the application
-    // Here, the application loop will run till the terminatio condition is statisfied
+    // Finally, run the application
+    // Here, the application loop will run till the termination condition is satisfied
     return app.run(run_for_frames);
 }

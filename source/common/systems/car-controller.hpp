@@ -99,7 +99,7 @@ namespace our
 
             glm::vec3 current_sensitivity = controller->positionSensitivity;
             // If the LEFT SHIFT key is pressed, we multiply the position sensitivity by the speed up factor
-            if(app->getKeyboard().isPressed(GLFW_KEY_LEFT_SHIFT)) current_sensitivity *= controller->speedupFactor*10000.00f;
+            if(app->getKeyboard().isPressed(GLFW_KEY_LEFT_SHIFT)) current_sensitivity *= controller->speedupFactor;
 
             // We change the camera position based on the keys WS
             // S & W moves the player back and forth
@@ -130,34 +130,32 @@ namespace our
         // Collision detection handling
         int iscollide(World*World, glm::vec3& position){
 
-            glm::vec3 carPosition;
             glm::vec3 wallPosition;
             glm::vec3 zwallPosition;
             
             auto entities = World->getEntities();
-            //Loop over all walls to check if the scarecrow collided with any of them
-
-            glm::vec3 min_x; 
-            glm::vec3 min_z;
+            //Loop over all walls to check if the car collided with any of them
 
             for(auto entity : entities)
             {
+                // This wall is aligned with the x-axis
                 if(entity->getComponent<wall>())
                 {
                     wallPosition = entity->localTransform.position;
-                    if(abs(position.x - wallPosition.x)  <= 5 && abs(position.z - wallPosition.z) <= 0.5)
+                    
+                    if(abs(position.x - wallPosition.x)  <= 5 && abs(position.z - wallPosition.z) <= 1)
                     {
                         return COLLIDED_WITH_XWALL;
                     }
 
                 }
+
+                // This wall is aligned with the z-axis
                 if(entity->getComponent<zwall>())
                 {
                     zwallPosition = entity->localTransform.position;
-
-                    if(abs(position.z-zwallPosition.z) <= 5 && abs(position.x - zwallPosition.x)  <= 0.5)
+                    if(abs(position.z-zwallPosition.z) <= 5 && abs(position.x - zwallPosition.x)  <= 1)
                     {
-
                         return COLLIDED_WITH_ZWALL;
                     }
                     
