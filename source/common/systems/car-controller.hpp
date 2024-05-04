@@ -145,20 +145,8 @@ namespace our
                 if(entity->getComponent<wall>())
                 {
                     wallPosition = entity->localTransform.position;
-//                    wallPosition = glm::vec3(entity->getLocalToWorldMatrix() * glm::vec4(entity->localTransform.position, 1.0));
-//                    carPosition = glm::vec3(entity->getLocalToWorldMatrix() * glm::vec4(position, 1.0));
-//                    std::cout<<"Wall X: " << wallPosition.x <<"\n";
-//                    std::cout<<"Car X: " << carPosition.x << "\n";
-//                    if (glm::distance(wallPosition, position) < glm::distance(position, min_x))
-//                    {
-//                        min_x = wallPosition;
-//                    }
-                    
-                    if(abs(position.x - wallPosition.x)  <= 5 && abs(position.z - wallPosition.z) <= 1)
+                    if(abs(position.x - wallPosition.x)  <= 5 && abs(position.z - wallPosition.z) <= 0.5)
                     {
-                        std::cout<<"Car position X: " << position.x << " Car position Z: " << position.z<<"\n";
-                        std::cout<<"Wall position X: " << wallPosition.x <<" Wall position Z: "<< wallPosition.z<<"\n";
-                        std::cout<<"Collided with XWALL\n";
                         return COLLIDED_WITH_XWALL;
                     }
 
@@ -166,18 +154,10 @@ namespace our
                 if(entity->getComponent<zwall>())
                 {
                     zwallPosition = entity->localTransform.position;
-//                    std::cout<<"ZWall Z: " << zwallPosition.z<< "\n";
-//                    zwallPosition =glm::vec3(entity->getLocalToWorldMatrix() *glm::vec4(entity->localTransform.position, 1.0));
-//                    carPosition = glm::vec3(entity->getLocalToWorldMatrix() * glm::vec4(position, 1.0));
-//                    if (glm::distance(wallPosition, position) < glm::distance(position, min_z))
-//                    {
-//                        min_z = zwallPosition;
-//                    }
-                    if(abs(position.z-zwallPosition.z) <= 5 && abs(position.x - zwallPosition.x)  <= 1)
+
+                    if(abs(position.z-zwallPosition.z) <= 5 && abs(position.x - zwallPosition.x)  <= 0.5)
                     {
-                        std::cout<<"Car position X: " << position.x << " Car position Z: " << position.z<<"\n";
-                        std::cout<<"Wall position X: " << zwallPosition.x <<" Wall position Z: "<< zwallPosition.z<<"\n";
-                        std::cout<<"Collided with ZWALL\n";
+
                         return COLLIDED_WITH_ZWALL;
                     }
                     

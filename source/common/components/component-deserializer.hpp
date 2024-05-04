@@ -54,5 +54,4 @@ namespace our
         if (component)
             component->deserialize(data);
     }
-
 }
