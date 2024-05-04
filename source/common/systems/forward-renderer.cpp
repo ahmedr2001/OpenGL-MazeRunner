@@ -63,6 +63,7 @@ namespace our
             glGenFramebuffers(1, &postprocessFrameBuffer);
             glBindFramebuffer(GL_DRAW_FRAMEBUFFER, postprocessFrameBuffer);
             
+            
             // TODO: (Req 11) Create a color and a depth texture and attach them to the framebuffer
             //  Hints: The color format can be (Red, Green, Blue and Alpha components with 8 bits for each channel).
             //  The depth format can be (Depth component with 24 bits).
@@ -205,8 +206,6 @@ namespace our
         {
             // setup the pipeline state and set the shader program to be used
             command.material->setup();
-<<<<<<< HEAD
-
             // If object has lit material
             if (auto litMaterial = dynamic_cast<LitMaterial *>(command.material); litMaterial)
             {
@@ -253,6 +252,10 @@ namespace our
                 // set the "transform" uniform to be equal the model-view-projection matrix
                 command.material->shader->set("transform", VP * command.localToWorld);
             }
+=======
+            // set the "transform" uniform to be equal the model-view-projection matrix
+            command.material->shader->set("transform", VP * command.localToWorld);
+>>>>>>> parent of 3dd356b (Added lights in forward-renderer (not tested yet))
 =======
             // set the "transform" uniform to be equal the model-view-projection matrix
             command.material->shader->set("transform", VP * command.localToWorld);
