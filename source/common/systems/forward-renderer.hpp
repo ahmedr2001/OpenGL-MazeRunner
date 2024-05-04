@@ -12,6 +12,7 @@
 
 namespace our
 {
+
     // The render command stores command that tells the renderer that it should draw
     // the given mesh at the given localToWorld matrix using the given material
     // The renderer will fill this struct using the mesh renderer components
@@ -35,8 +36,6 @@ namespace our
         // We define them here (instead of being local to the "render" function) as an optimization to prevent reallocating them every frame
         std::vector<RenderCommand> opaqueCommands;
         std::vector<RenderCommand> transparentCommands;
-        // vector for lights
-        std::vector<LightComponent*> lights;
         // Objects used for rendering a skybox
         Mesh *skySphere;
         TexturedMaterial *skyMaterial;
