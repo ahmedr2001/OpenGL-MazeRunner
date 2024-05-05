@@ -388,12 +388,6 @@
                         },
                         {
                             "type": "Free Camera Controller"
-                        },
-                        {
-                          "type": "Light",
-                          "lightType": "point",
-                          "color": [0.0, 0.0, 0.006],
-                          "attenuation": [0.001, 0.0, 0.0]
                         }
                     ]
                   }

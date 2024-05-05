@@ -41,9 +41,9 @@ namespace our
 
         }
 
-        // This should be called every frame to update all entities containing a FreeCameraControllerComponent 
+        // This should be called every frame to update all entities containing a CarControllerComponent 
         void update(World* world, float deltaTime) {
-            // First of all, we search for an entity containing both a CameraComponent and a FreeCameraControllerComponent
+            // First of all, we search for an entity containing both a carComponent and a carControllerComponent
             // As soon as we find one, we break
 
 
@@ -51,17 +51,17 @@ namespace our
                 return;
             }
 
-            Car* camera = nullptr;
+            Car* car = nullptr;
             CarControllerComponent *controller = nullptr;
             for(auto entity : world->getEntities()){
-                camera = entity->getComponent<Car>();
+                car = entity->getComponent<Car>();
                 controller = entity->getComponent<CarControllerComponent>();
-                if(camera && controller) break;
+                if(car && controller) break;
             }
-            // If there is no entity with both a CameraComponent and a FreeCameraControllerComponent, we can do nothing so we return
-            if(!(camera && controller)) return;
-            // Get the entity that we found via getOwner of camera (we could use controller->getOwner())
-            Entity* entity = camera->getOwner();
+            // If there is no entity with both a carComponent and a carControllerComponent, we can do nothing so we return
+            if(!(car && controller)) return;
+            // Get the entity that we found via getOwner of car (we could use controller->getOwner())
+            Entity* entity = car->getOwner();
 
 
 
@@ -87,18 +87,16 @@ namespace our
             }
          
             
-            // We get the camera model matrix (relative to its parent) to compute the front, up and right directions
+            // We get the car model matrix (relative to its parent) to compute the front, up and right directions
             glm::mat4 matrix = entity->localTransform.toMat4();
 
-            glm::vec3 front = glm::vec3(matrix * glm::vec4(0, 0, -1, 0)),
-                      up = glm::vec3(matrix * glm::vec4(0, 1, 0, 0)), 
-                      right = glm::vec3(matrix * glm::vec4(1, 0, 0, 0));
+            glm::vec3 front = glm::vec3(matrix * glm::vec4(0, 0, -1, 0));
 
             glm::vec3 current_sensitivity = controller->positionSensitivity;
             // If the LEFT SHIFT key is pressed, we multiply the position sensitivity by the speed up factor
             if(app->getKeyboard().isPressed(GLFW_KEY_LEFT_SHIFT)) current_sensitivity *= controller->speedupFactor*1.2f;
 
-            // We change the camera position based on the keys WS
+            // We change the car position based on the keys WS
             // S & W moves the player back and forth
             if(app->getKeyboard().isPressed(GLFW_KEY_S)) position += front * (deltaTime * (current_sensitivity.z));
             iscolide = iscollide(world,position);
@@ -112,6 +110,12 @@ namespace our
             if(app->getKeyboard().isPressed(GLFW_KEY_D)) rotation.y -= deltaTime* 100 * controller->rotationSensitivity;
             if(app->getKeyboard().isPressed(GLFW_KEY_A)) rotation.y += deltaTime* 100 * controller->rotationSensitivity;
 
+
+
+
+            glm::vec2 delta = app->getMouse().getMouseDelta();
+            // rotation.x -= delta.y * controller->rotationSensitivity; // The y-axis controls the pitch
+            rotation.y -= delta.x * controller->rotationSensitivity; // The x-axis controls the yaw
         }
 
         // When the state exits, it should call this function to ensure the mouse is unlocked
