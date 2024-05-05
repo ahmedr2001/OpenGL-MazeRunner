@@ -20,6 +20,9 @@ class PlaystateEve: public our::State {
     our::MovementSystem movementSystem;
     our::CarControllerSystem carController;
 
+    const int speeddown_factor = 60;
+    int duration_minutes, duration_seconds, clock;
+
     void onInitialize() override {
         // First of all, we get the scene configuration from the app config
         std::string config_path = "config/play_eve.jsonc";
@@ -38,6 +41,8 @@ class PlaystateEve: public our::State {
         if(config.contains("world")){
             world.deserialize(config["world"]);
         }
+        // Initialize timer
+        duration_minutes = 5, duration_seconds = 0, clock = speeddown_factor;
         // We initialize the camera controller system since it needs a pointer to the app
         cameraController.enter(getApp());
         carController.enter(getApp());
@@ -48,7 +53,15 @@ class PlaystateEve: public our::State {
 
     void onDraw(double deltaTime) override {
         // Here, we just run a bunch of systems to control the world logic
-
+        std::string remaining_time = std::to_string(duration_minutes) + ":" +
+                                     ((duration_seconds >= 10) ? std::to_string(duration_seconds) : "0" + std::to_string(duration_seconds));
+        getApp()->printTextCenter(remaining_time, 1, 10);
+        if (duration_minutes == 0 && duration_seconds == 0) {
+            getApp()->changeState("menu"); // TODO: Change this to loss state
+        }
+        clock = (clock - 1 + speeddown_factor) % speeddown_factor;
+        if (clock == 0) duration_seconds = (duration_seconds - 1 + 60) % 60;
+        if (duration_seconds == 59 && clock == 0) duration_minutes--;
 
         movementSystem.update(&world, (float)deltaTime);
         cameraController.update(&world, (float)deltaTime);
@@ -58,6 +71,7 @@ class PlaystateEve: public our::State {
 
         // Get a reference to the keyboard object
         auto& keyboard = getApp()->getKeyboard();
+
 
         if(keyboard.justPressed(GLFW_KEY_ESCAPE)){
             // If the escape  key is pressed in this frame, go to the play state
