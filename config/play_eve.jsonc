@@ -42,7 +42,9 @@
               "wall3": "assets/textures/ConcreteWall.png",
               "wall4": "assets/textures/clean_wall.jpg",
               "floor1": "assets/textures/clean_floor.jpg",
-              "floor2": "assets/textures/clean_floor.jpg"
+              "floor2": "assets/textures/clean_floor.jpg",
+              "plant" : "assets/textures/plant.jpg",
+              "trash_bag":"assets/textures/trash_bag.jpg" 
             },
             "meshes": {
               "cube": "assets/models/cube.obj",
@@ -52,7 +54,9 @@
               "car1": "assets/models/wall-e.obj",
               "car2": "assets/models/EVE.obj",
               "car3": "assets/models/casino_car.obj",                        
-              "wall" : "assets/models/concrete_wall.obj"
+              "wall" : "assets/models/concrete_wall.obj",
+              "plant" : "assets/models/plant.obj",
+              "trash_bag": "assets/models/trash_bag.obj"
             },
             "samplers": {
               "default": {},
@@ -275,7 +279,37 @@
                 "tint": [1, 1, 1, 1],
                 "texture": "floor2",
                 "sampler": "default"
-              }
+              },
+            "plantMaterial": {
+              "type": "textured",
+              "shader": "textured",
+              "pipelineState": {
+                "faceCulling": {
+                  "enabled": false
+                },
+                "depthTesting": {
+                  "enabled": true
+                }
+              },
+              "tint": [1, 1, 1, 1],
+              "texture": "plant",
+              "sampler": "default"
+            },
+            "trashMaterial": {
+              "type": "textured",
+              "shader": "textured",
+              "pipelineState": {
+                "faceCulling": {
+                  "enabled": false
+                },
+                "depthTesting": {
+                  "enabled": true
+                }
+              },
+              "tint": [1, 1, 1, 1],
+              "texture": "trash_bag",
+              "sampler": "default"
+            }
             }
           },
         "world":[
@@ -313,6 +347,125 @@
                     ]
                   }
                  ]
+              },
+              
+              {
+                "position": [1, -1, -1],
+                "scale": [1, 1, 1],
+                "components": [
+                    {
+                        "type":"Mesh Renderer",
+                        "mesh": "plant",
+                        "material":"plantMaterial"
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0.5, 0, 0.5],
+                        "angularVelocity": [0, 0, 0]
+                    }
+                ]
+              },
+
+              {
+                "position": [50, -1, -50],
+                "scale": [1, 1, 1],
+                "components": [
+                    {
+                        "type":"Mesh Renderer",
+                        "mesh": "plant",
+                        "material":"plantMaterial"
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0.5, 0, 0.5],
+                        "angularVelocity": [0, 0, 0]
+                    }
+                ]
+              },
+
+              {
+                "position": [20, -1, -11],
+                "scale": [1, 1, 1],
+                "components": [
+                    {
+                        "type":"Mesh Renderer",
+                        "mesh": "plant",
+                        "material":"plantMaterial"
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0.5, 0, 0.5],
+                        "angularVelocity": [0, 0, 0]
+                    }
+                ]
+              },
+
+              {
+                "position": [10, -1, -10],
+                "scale": [1, 1, 1],
+                "components": [
+                    {
+                        "type":"Mesh Renderer",
+                        "mesh": "plant",
+                        "material":"plantMaterial"
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0.5, 0, 0.5],
+                        "angularVelocity": [0, 0, 0]
+                    }
+                ]
+              },
+
+              {
+                "position": [10, -1, -90],
+                "scale": [1, 1, 1],
+                "components": [
+                    {
+                        "type":"Mesh Renderer",
+                        "mesh": "plant",
+                        "material":"plantMaterial"
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0.5, 0, 0.5],
+                        "angularVelocity": [0, 0, 0]
+                    }
+                ]
+              },
+
+              {
+                "position": [20, -1, -100],
+                "scale": [1, 1, 1],
+                "components": [
+                    {
+                        "type":"Mesh Renderer",
+                        "mesh": "plant",
+                        "material":"plantMaterial"
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0.5, 0, 0.5],
+                        "angularVelocity": [0, 0, 0]
+                    }
+                ]
+              },
+
+              {
+                "position": [0, -1, -50],
+                "scale": [1, 1, 1],
+                "components": [
+                    {
+                        "type":"Mesh Renderer",
+                        "mesh": "plant",
+                        "material":"plantMaterial"
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0.5, 0, 0.5],
+                        "angularVelocity": [0, 0, 0]
+                    }
+                ]
               },
   
               // !  0 horizontal walls

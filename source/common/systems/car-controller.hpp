@@ -129,7 +129,8 @@ namespace our
 
             glm::vec3 wallPosition;
             glm::vec3 zwallPosition;
-            
+            glm::vec3 movementPosition;
+
             auto entities = World->getEntities();
             //Loop over all walls to check if the car collided with any of them
 
@@ -156,6 +157,17 @@ namespace our
                         return COLLIDED_WITH_ZWALL;
                     }
                     
+                }
+
+                if(entity->getComponent<MovementComponent>()){
+                    movementPosition = entity->localTransform.position;   
+
+                    if(glm::distance(movementPosition, position) < 0.5)
+                    {
+                        printf("Collided!\n");
+
+                        //! should update the time and delete it
+                    }                 
                 }
             }
             return NO_COLLISION;
