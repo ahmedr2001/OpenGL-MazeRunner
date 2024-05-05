@@ -11,7 +11,7 @@
     },
     "scene": {
         "renderer":{
-            "sky": "assets/textures/sky.jpg",
+            "sky": "assets/textures/sky3.jpg",
             "postprocess": "assets/shaders/postprocess/vignette.frag"
         },
         "assets": {
@@ -24,9 +24,9 @@
                 "vs": "assets/shaders/textured.vert",
                 "fs": "assets/shaders/textured.frag"
               },
-              "light": {
-                "vs": "assets/shaders/light.vert",
-                "fs": "assets/shaders/light.frag"
+              "lighted": {
+                "vs": "assets/shaders/lighted.vert",
+                "fs": "assets/shaders/lighted.frag"
               }
             },
             "textures": {
@@ -44,7 +44,9 @@
               "floor1": "assets/textures/clean_floor.jpg",
               "floor2": "assets/textures/clean_floor.jpg",
               "plant" : "assets/textures/plant.jpg",
-              "trash_bag":"assets/textures/trash_bag.jpg" 
+              "trash_bag":"assets/textures/trash_bag.jpg",
+              "white": "assets/textures/white.jpg",
+              "black": "assets/textures/black.jpg"
             },
             "meshes": {
               "cube": "assets/models/cube.obj",
@@ -146,8 +148,8 @@
                 "sampler": "default"
               },
               "carMaterial2": {
-                "type": "textured",
-                "shader": "textured",
+                "type": "lighted",
+                "shader": "lighted",
                 "pipelineState": {
                   "faceCulling": {
                     "enabled": false
@@ -156,9 +158,14 @@
                     "enabled": true
                   }
                 },
-                "tint": [1, 1, 1, 1],
+                "tint": [0.2, 0.2, 0.2, 1],
                 "texture": "cartex2",
-                "sampler": "default"
+                "sampler": "default",
+                "albedo": "cartex2",
+                "roughness":"roughness",
+                "specular":"white",
+                "ambient_occlusion":"black",
+                "emissive": "cartex2"
               },
               "carMaterial3": {
                 "type": "textured",
@@ -236,8 +243,8 @@
                 "sampler": "default"
               },
               "wallMaterial4": {
-                "type": "textured",
-                "shader": "textured",
+                "type": "lighted",
+                "shader": "lighted",
                 "pipelineState": {
                   "faceCulling": {
                     "enabled": false
@@ -246,9 +253,14 @@
                     "enabled": true
                   }
                 },
-                "tint": [1, 1, 1, 1],
-                "texture": "wall4",
-                "sampler": "default"
+                "tint": [0.3, 0.3, 0.3, 1],
+                "texture" :"wall4",
+                "sampler": "default",
+                "albedo" :"wall4",
+                "roughness":"roughness",
+                "specular":"white",
+                "ambient_occlusion":"black",
+                "emissive":"black"
               },
               "floorMaterial1": {
                 "type": "textured",
@@ -276,9 +288,14 @@
                     "enabled": true
                   }
                 },
-                "tint": [1, 1, 1, 1],
-                "texture": "floor2",
-                "sampler": "default"
+                "tint": [0.6, 0.6, 0.6, 1],
+                "texture" :"floor2",
+                "sampler": "default",
+                "albedo" :"floor2",
+                "roughness":"roughness",
+                "specular":"white",
+                "ambient_occlusion":"black",
+                "emissive":"black"
               },
             "plantMaterial": {
               "type": "textured",
@@ -331,9 +348,37 @@
                   
                   {
                     "type": "Car Controller"
+                  },
+                  {
+                    "type": "Light",
+                    "lightType": "point",
+                    "color": [0.008, 0.008, 0.008],
+                    "position": [0, 2, 0],
+                    "attenuation": [0.0005, 0.0, 0.0]
+                  },
+                  {
+                    "type": "Light",
+                    "lightType": "spot",
+                    "color": [0.0, 0.0, 0.008],
+                    "direction":[0,0,1],
+                    "cone_angle":[0,10],
+                    "attenuation": [0.0005, 0.0, 0.0]
                   }
                 ],
                 "children": [
+                  // {
+                  //   "position": [0, -1, 0],
+                  //   "components":[
+                  //     {
+                  //       "type": "Light",
+                  //       "lightType": "spot",
+                  //       "color": [0.0, 0.0, 0.008],
+                  //       "direction":[0,0,1],
+                  //       "cone_angle":[0,10],
+                  //       "attenuation": [0.0005, 0.0, 0.0]
+                  //     }
+                  //   ]
+                  // },
                   {
                     "position": [0, 5, -4],
                     "rotation": [0, 180, 0],
@@ -343,6 +388,12 @@
                         },
                         {
                             "type": "Free Camera Controller"
+                        },
+                        {
+                          "type": "Light",
+                          "lightType": "point",
+                          "color": [0.0, 0.0, 0.006],
+                          "attenuation": [0.001, 0.0, 0.0]
                         }
                     ]
                   }
