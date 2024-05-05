@@ -12,6 +12,9 @@
 
 #include <flags/flags.h>
 
+#define MINIAUDIO_IMPLEMENTATION
+#include <miniaudio.h>
+
 // Include the Dear ImGui implementation headers
 #define IMGUI_IMPL_OPENGL_LOADER_GLAD2
 #include <imgui_impl/imgui_impl_glfw.h>
@@ -239,6 +242,32 @@ int our::Application::run(int run_for_frames) {
     double last_frame_time = glfwGetTime();
     int current_frame = 0;
 
+    std::unordered_map<std::string, ma_sound*> sounds; // All the music tracks that the program can run
+    ma_sound* currentMusic = nullptr;
+    ma_sound* nextMusic = nullptr;
+    sounds["menu"] = new ma_sound();
+    sounds["play-wall-e"] = new ma_sound();
+    sounds["play-eve"] = new ma_sound();
+    sounds["loss-wall-e"] = new ma_sound();
+    sounds["loss-eve"] = new ma_sound();
+    sounds["win"] = new ma_sound();
+    // Initializing the audio engine
+    ma_result result;
+    ma_engine* pEngine = new ma_engine();
+
+    result = ma_engine_init(NULL, pEngine);
+    if (result == MA_SUCCESS) { // Succeeded to initialize the engine
+        // Initializing the audio tracks
+        ma_sound_init_from_file(pEngine, "assets/audio/menu.mp3", 0, NULL, NULL, sounds["menu"]);
+        ma_sound_init_from_file(pEngine, "assets/audio/play-wall-e.mp3", 0, NULL, NULL, sounds["play-wall-e"]);
+        ma_sound_init_from_file(pEngine, "assets/audio/play-eve.mp3", 0, NULL, NULL, sounds["play-eve"]);
+        ma_sound_init_from_file(pEngine, "assets/audio/loss-wall-e.mp3", 0, NULL, NULL, sounds["loss-wall-e"]);
+        ma_sound_init_from_file(pEngine, "assets/audio/loss-eve.mp3", 0, NULL, NULL, sounds["loss-eve"]);
+        ma_sound_init_from_file(pEngine, "assets/audio/win.mp3", 0, NULL, NULL, sounds["win"]);
+        currentMusic = sounds["menu"];
+        ma_sound_start(currentMusic);
+    }
+
     //Game loop
     while(!glfwWindowShouldClose(window)){
         if(run_for_frames != 0 && current_frame >= run_for_frames) break;
@@ -316,11 +345,34 @@ int our::Application::run(int run_for_frames) {
         while(nextState){
             // If a scene was already running, destroy it (not delete since we can go back to it later)
             if(currentState) currentState->onDestroy();
+            // Extract next audio based on the next state
+            for (auto it : states) {
+                if (it.second == nextState) {
+                    nextMusic = sounds[it.first];
+                    currentStateName = it.first;
+                    break;
+                }
+            }
             // Switch scenes
             currentState = nextState;
             nextState = nullptr;
             // Initialize the new scene
             currentState->onInitialize();
+
+            // Switch audio
+            ma_sound_stop(currentMusic);
+            currentMusic = nextMusic;
+            nextMusic = nullptr;
+            ma_sound_seek_to_pcm_frame(currentMusic, 0);
+            if (currentStateName == "win"
+            || currentStateName == "loss-wall-e"
+            || currentStateName == "loss-eve") {
+                ma_sound_set_looping(currentMusic, false);
+            }
+            else {
+                ma_sound_set_looping(currentMusic, true);
+            }
+            ma_sound_start(currentMusic);
         }
 
         ++current_frame;

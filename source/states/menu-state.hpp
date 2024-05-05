@@ -101,7 +101,7 @@ class Menustate: public our::State {
         selectedCar = -1, selectedLevel = -1;
 
         // Fill the playStates array
-        std::string walleState = "play_wall_e", eveState = "play_eve";
+        std::string walleState = "play-wall-e", eveState = "play-eve";
         playStates[0] = walleState, playStates[1] = eveState;
 
         // Fill the positions, sizes and actions for the menu buttons

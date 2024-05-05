@@ -47,8 +47,8 @@ int main(int argc, char** argv) {
 
     // Register all the states of the project in the application
     app.registerState<Menustate>("menu");
-    app.registerState<Playstate>("play_wall_e");
-    app.registerState<PlaystateEve>("play_eve");
+    app.registerState<Playstate>("play-wall-e");
+    app.registerState<PlaystateEve>("play-eve");
     app.registerState<Winstate>("win");
     app.registerState<Lossevestate>("loss-eve");
     app.registerState<Losswallestate>("loss-wall-e");
