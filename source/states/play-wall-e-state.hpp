@@ -18,7 +18,7 @@ class Playstate: public our::State {
     our::MovementSystem movementSystem;
     our::CarControllerSystem carController;
 
-    const int speeddown_factor = 60;
+    const int speeddown_factor = 10;
     int duration_minutes, duration_seconds, clock;
 
     void onInitialize() override {
@@ -55,7 +55,7 @@ class Playstate: public our::State {
                 ((duration_seconds >= 10) ? std::to_string(duration_seconds) : "0" + std::to_string(duration_seconds));
         getApp()->printTextCenter(remaining_time, 1, 10);
         if (duration_minutes == 0 && duration_seconds == 0) {
-            getApp()->changeState("menu"); // TODO: Change this to loss state
+            getApp()->changeState("loss-wall-e");
         }
         clock = (clock - 1 + speeddown_factor) % speeddown_factor;
         if (clock == 0) duration_seconds = (duration_seconds - 1 + 60) % 60;
