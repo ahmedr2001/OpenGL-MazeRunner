@@ -46,11 +46,6 @@ namespace our
             // First of all, we search for an entity containing both a carComponent and a carControllerComponent
             // As soon as we find one, we break
 
-
-            if(app->getMouse().isPressed(GLFW_MOUSE_BUTTON_1)){
-                return;
-            }
-
             Car* car = nullptr;
             CarControllerComponent *controller = nullptr;
             for(auto entity : world->getEntities()){
@@ -107,15 +102,18 @@ namespace our
             if(iscolide) position += front * (deltaTime * current_sensitivity.z);
 
             // A & D moves the player left or right 
-            if(app->getKeyboard().isPressed(GLFW_KEY_D)) rotation.y -= deltaTime* 100 * controller->rotationSensitivity;
-            if(app->getKeyboard().isPressed(GLFW_KEY_A)) rotation.y += deltaTime* 100 * controller->rotationSensitivity;
+            // if(app->getKeyboard().isPressed(GLFW_KEY_D)) rotation.y -= deltaTime* 100 * controller->rotationSensitivity;
+            // if(app->getKeyboard().isPressed(GLFW_KEY_A)) rotation.y += deltaTime* 100 * controller->rotationSensitivity;
+            
+            if(app->getMouse().isPressed(GLFW_MOUSE_BUTTON_1)){
+                glm::vec2 delta = app->getMouse().getMouseDelta();
+                // rotation.x -= delta.y * controller->rotationSensitivity; // The y-axis controls the pitch
+                rotation.y -= delta.x * controller->rotationSensitivity; // The x-axis controls the yaw
+            }
 
+            if(position.z < -105 && (-5 < position.x && position.x < 5))
+                app->changeState("win");
 
-
-
-            glm::vec2 delta = app->getMouse().getMouseDelta();
-            // rotation.x -= delta.y * controller->rotationSensitivity; // The y-axis controls the pitch
-            rotation.y -= delta.x * controller->rotationSensitivity; // The x-axis controls the yaw
         }
 
         // When the state exits, it should call this function to ensure the mouse is unlocked
