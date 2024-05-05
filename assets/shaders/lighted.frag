@@ -13,11 +13,6 @@ struct Light {
     vec2 cone_angles; // for SPOT light
 };
 
-#define MAX_LIGHTS 8
-
-uniform Light lights[MAX_LIGHTS];
-uniform int light_count;
-
 // Defines sky color at 3 different levels
 struct Sky {
     vec3 top, horizon, bottom;
