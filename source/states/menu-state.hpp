@@ -181,7 +181,6 @@ class Menustate: public our::State {
                 rectangle->draw();
             }
         }
-        
     }
 
     void onDestroy() override {

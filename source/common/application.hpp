@@ -133,5 +133,21 @@ namespace our {
             glfwGetWindowSize(window, &(size.x), &(size.y));
             return size;
         }
+
+        void printTextCenter(std::string text, int height, float textSize) {
+            ImGuiIO &io = ImGui::GetIO();
+
+            io.FontGlobalScale = textSize;
+
+            WindowConfiguration windowConfiguration = this->getWindowConfiguration();
+            float window_width = windowConfiguration.size.x;
+            float text_width = (float) text.size();
+
+            ImVec2 text_pos = ImVec2((float)(window_width / 2 - 7 * io.FontGlobalScale * (text_width / 2)), (float)height);
+            ImU32 text_color = IM_COL32(255, 255, 255, 255);
+
+            ImGui::GetBackgroundDrawList()->AddText(text_pos, text_color, text.c_str());
+            ImGui::Render();
+        }
     };
 }
