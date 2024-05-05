@@ -18,6 +18,8 @@
 #include "states/material-test-state.hpp"
 #include "states/entity-test-state.hpp"
 #include "states/renderer-test-state.hpp"
+#include "states/loss-eve-state.hpp"
+#include "states/loss-wall-e-state.hpp"
 
 int main(int argc, char** argv) {
     
@@ -48,6 +50,8 @@ int main(int argc, char** argv) {
     app.registerState<Playstate>("play_wall_e");
     app.registerState<PlaystateEve>("play_eve");
     app.registerState<Winstate>("win");
+    app.registerState<Lossevestate>("loss-eve");
+    app.registerState<Losswallestate>("loss-wall-e");
     app.registerState<ShaderTestState>("shader-test");
     app.registerState<MeshTestState>("mesh-test");
     app.registerState<TransformTestState>("transform-test");

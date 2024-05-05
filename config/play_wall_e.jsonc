@@ -371,8 +371,8 @@
                   {
                     "type": "Light",
                     "lightType": "point",
-                    "color": [0.008, 0.008, 0.0],
-                    "position": [0, 2, 0],
+                    "color": [0.1, 0.08, 0.2],
+                    "position": [0, 1, 0],
                     "attenuation": [0.0006, 0.0, 0.0]
                   }
                   // {
@@ -398,6 +398,15 @@
                         {
                             "type": "Free Camera Controller"
                         }
+//                         {
+//                             "type": "Light",
+//                             "lightType": "spot",
+//                             "color": [1,0,1],
+//                             "position": [0, 0, 0],
+//                             "direction": [0, -1, 0],
+//                             "attenuation": [0.0001, 0.0001, 0.0001],
+//                             "cone_angle": [50, 60]
+//                         }
                         // ,
                         // {
                         //   "type": "Light",

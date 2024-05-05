@@ -124,7 +124,7 @@ set(STATES_SOURCES
         source/states/material-test-state.hpp
         source/states/entity-test-state.hpp
         source/states/renderer-test-state.hpp
-        source/states/play-eve-state.hpp source/states/win-state.hpp)
+        source/states/play-eve-state.hpp source/states/win-state.hpp source/states/loss-eve-state.hpp source/states/loss-wall-e-state.hpp)
 
 # For each example, we add an executable target
 # Each target compiles one example source file and the common & vendor source files
