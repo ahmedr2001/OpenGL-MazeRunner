@@ -18,8 +18,7 @@ class Playstate: public our::State {
     our::MovementSystem movementSystem;
     our::CarControllerSystem carController;
 
-    const int speeddown_factor = 60;
-    int duration_minutes, duration_seconds, clock;
+    int duration_minutes, duration_seconds, speeddown_factor, clock;
 
     void onInitialize() override {
         // First of all, we get the scene configuration from the app config
@@ -40,7 +39,8 @@ class Playstate: public our::State {
             world.deserialize(config["world"]);
         }
         // Initialize timer
-        duration_minutes = 5, duration_seconds = 0, clock = speeddown_factor;
+        duration_minutes = app_config["duration-minutes"], duration_seconds = app_config["duration-seconds"];
+        speeddown_factor = app_config["speeddown-factor"], clock = speeddown_factor;
         // We initialize the camera controller system since it needs a pointer to the app
         cameraController.enter(getApp());
         carController.enter(getApp());

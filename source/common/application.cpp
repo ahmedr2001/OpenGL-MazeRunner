@@ -1,5 +1,8 @@
 #include "application.hpp"
 
+#define MINIAUDIO_IMPLEMENTATION
+#include <miniaudio.h>
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -9,11 +12,10 @@
 #include <queue>
 #include <tuple>
 #include <filesystem>
+#include <components/audio-controller.hpp>
+our::AudioController* our::AudioController::audioController = NULL;
 
 #include <flags/flags.h>
-
-#define MINIAUDIO_IMPLEMENTATION
-#include <miniaudio.h>
 
 // Include the Dear ImGui implementation headers
 #define IMGUI_IMPL_OPENGL_LOADER_GLAD2
@@ -241,32 +243,9 @@ int our::Application::run(int run_for_frames) {
     // The time at which the last frame started. But there was no frames yet, so we'll just pick the current time.
     double last_frame_time = glfwGetTime();
     int current_frame = 0;
-
-    std::unordered_map<std::string, ma_sound*> sounds; // All the music tracks that the program can run
-    ma_sound* currentMusic = nullptr;
-    ma_sound* nextMusic = nullptr;
-    sounds["menu"] = new ma_sound();
-    sounds["play-wall-e"] = new ma_sound();
-    sounds["play-eve"] = new ma_sound();
-    sounds["loss-wall-e"] = new ma_sound();
-    sounds["loss-eve"] = new ma_sound();
-    sounds["win"] = new ma_sound();
-    // Initializing the audio engine
-    ma_result result;
-    ma_engine* pEngine = new ma_engine();
-
-    result = ma_engine_init(NULL, pEngine);
-    if (result == MA_SUCCESS) { // Succeeded to initialize the engine
-        // Initializing the audio tracks
-        ma_sound_init_from_file(pEngine, "assets/audio/menu.mp3", 0, NULL, NULL, sounds["menu"]);
-        ma_sound_init_from_file(pEngine, "assets/audio/play-wall-e.mp3", 0, NULL, NULL, sounds["play-wall-e"]);
-        ma_sound_init_from_file(pEngine, "assets/audio/play-eve.mp3", 0, NULL, NULL, sounds["play-eve"]);
-        ma_sound_init_from_file(pEngine, "assets/audio/loss-wall-e.mp3", 0, NULL, NULL, sounds["loss-wall-e"]);
-        ma_sound_init_from_file(pEngine, "assets/audio/loss-eve.mp3", 0, NULL, NULL, sounds["loss-eve"]);
-        ma_sound_init_from_file(pEngine, "assets/audio/win.mp3", 0, NULL, NULL, sounds["win"]);
-        currentMusic = sounds["menu"];
-        ma_sound_start(currentMusic);
-    }
+    AudioController* auc = AudioController::getAudioController();
+    auc->initialize();
+    auc->play("menu", true, true);
 
     //Game loop
     while(!glfwWindowShouldClose(window)){
@@ -348,7 +327,6 @@ int our::Application::run(int run_for_frames) {
             // Extract next audio based on the next state
             for (auto it : states) {
                 if (it.second == nextState) {
-                    nextMusic = sounds[it.first];
                     currentStateName = it.first;
                     break;
                 }
@@ -360,19 +338,14 @@ int our::Application::run(int run_for_frames) {
             currentState->onInitialize();
 
             // Switch audio
-            ma_sound_stop(currentMusic);
-            currentMusic = nextMusic;
-            nextMusic = nullptr;
-            ma_sound_seek_to_pcm_frame(currentMusic, 0);
             if (currentStateName == "win"
             || currentStateName == "loss-wall-e"
             || currentStateName == "loss-eve") {
-                ma_sound_set_looping(currentMusic, false);
+                auc->play(currentStateName, false, true);
             }
             else {
-                ma_sound_set_looping(currentMusic, true);
+                auc->play(currentStateName, true, true);
             }
-            ma_sound_start(currentMusic);
         }
 
         ++current_frame;
