@@ -30,9 +30,9 @@ namespace our
         Application *app;          // The application in which the state runs
         bool mouse_locked = false; // Is the mouse locked
         bool iscolide;
-        bool effect_flag = false;
 
     public:
+        bool effect_flag = false;
         // When a state enters, it should call this function and give it the pointer to the application
         void enter(Application *app)
         {
@@ -40,8 +40,7 @@ namespace our
         }
 
         // This should be called every frame to update all entities containing a FreeCameraControllerComponent
-        void update(World *world, float deltaTime)
-        {
+        void update(World *world, float deltaTime) {
             // // First of all, we search for an entity containing both a CameraComponent and a FreeCameraControllerComponent
             // // As soon as we find one, we break
             // CameraComponent* camera = nullptr;
@@ -57,8 +56,7 @@ namespace our
             // Entity* entity = camera->getOwner();
 
             // If the left mouse button is pressed, we lock and hide the mouse. This common in First Person Games.
-            if (app->getMouse().isPressed(GLFW_MOUSE_BUTTON_1) && !mouse_locked)
-            {
+            if (app->getMouse().isPressed(GLFW_MOUSE_BUTTON_1) && !mouse_locked) {
                 app->getMouse().lockMouse(app->getWindow());
                 mouse_locked = true;
                 // // If the left mouse button is released, we unlock and unhide the mouse.
@@ -101,12 +99,10 @@ namespace our
                 // if(app->getKeyboard().isPressed(GLFW_KEY_LEFT_SHIFT)) current_sensitivity *= controller->speedupFactor;
 
                 // If the LEFT SHIFT key is pressed (speed up), the following condition raises a flag to apply postprocessing effect
-                if (app->getKeyboard().isPressed(GLFW_KEY_LEFT_SHIFT) && app->getKeyboard().isPressed(GLFW_KEY_W))
-                {
+                if (app->getKeyboard().isPressed(GLFW_KEY_LEFT_SHIFT) && app->getKeyboard().isPressed(GLFW_KEY_W)) {
                     effect_flag = true;
                 }
-                if (!app->getKeyboard().isPressed(GLFW_KEY_LEFT_SHIFT))
-                {
+                if (!app->getKeyboard().isPressed(GLFW_KEY_LEFT_SHIFT)) {
                     effect_flag = false;
                 }
 
@@ -120,7 +116,7 @@ namespace our
                 // if(app->getKeyboard().isPressed(GLFW_KEY_D)) position += right * (deltaTime * current_sensitivity.x);
                 // if(app->getKeyboard().isPressed(GLFW_KEY_A)) position -= right * (deltaTime * current_sensitivity.x);
             }
-
+        }
             // Collision detection handling
             int iscollide(World * World, glm::vec3 & position)
             {
