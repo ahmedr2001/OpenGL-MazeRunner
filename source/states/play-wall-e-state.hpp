@@ -53,7 +53,12 @@ class Playstate: public our::State {
         // Here, we just run a bunch of systems to control the world logic
         std::string remaining_time = std::to_string(duration_minutes) + ":" +
                 ((duration_seconds >= 10) ? std::to_string(duration_seconds) : "0" + std::to_string(duration_seconds));
-        getApp()->printTextCenter(remaining_time, 1, 10);
+        if (duration_minutes == 0 && duration_seconds <= 30 && duration_seconds % 2 == 0) {
+            getApp()->printTextCenter(remaining_time, 1, 10, 255, 0, 0, 255);
+        }
+        else {
+            getApp()->printTextCenter(remaining_time, 1, 10, 255, 255, 255, 255);
+        }
         if (duration_minutes == 0 && duration_seconds == 0) {
             getApp()->changeState("loss-wall-e");
         }

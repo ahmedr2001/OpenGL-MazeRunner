@@ -135,7 +135,7 @@ namespace our {
             return size;
         }
 
-        void printTextCenter(std::string text, int height, float textSize) {
+        void printTextCenter(std::string text, int height, float textSize, int r, int g, int b, int a) {
             ImGuiIO &io = ImGui::GetIO();
 
             io.FontGlobalScale = textSize;
@@ -145,7 +145,7 @@ namespace our {
             float text_width = (float) text.size();
 
             ImVec2 text_pos = ImVec2((float)(window_width / 2 - 7 * io.FontGlobalScale * (text_width / 2)), (float)height);
-            ImU32 text_color = IM_COL32(255, 255, 255, 255);
+            ImU32 text_color = IM_COL32(r, g, b, a);
 
             ImGui::GetBackgroundDrawList()->AddText(text_pos, text_color, text.c_str());
             ImGui::Render();
