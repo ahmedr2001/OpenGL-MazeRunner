@@ -46,7 +46,9 @@
               "plant" : "assets/textures/plant.jpg",
               "trash_bag":"assets/textures/trash_bag.jpg",
               "white": "assets/textures/white.jpg",
-              "black": "assets/textures/black.jpg"
+              "black": "assets/textures/black.jpg",
+              "green": "assets/textures/green.png",
+              "plant_emissive": "assets/textures/plant_emissive.jpg"
             },
             "meshes": {
               "cube": "assets/models/cube.obj",
@@ -298,8 +300,8 @@
                 "emissive":"black"
               },
             "plantMaterial": {
-              "type": "textured",
-              "shader": "textured",
+              "type": "lighted",
+              "shader": "lighted",
               "pipelineState": {
                 "faceCulling": {
                   "enabled": false
@@ -308,9 +310,14 @@
                   "enabled": true
                 }
               },
-              "tint": [1, 1, 1, 1],
+              "tint": [0.5, 0.5, 0.5, 1],
               "texture": "plant",
-              "sampler": "default"
+              "sampler": "default",
+              "albedo" :"plant",
+              "roughness":"roughness",
+              "specular":"white",
+              "ambient_occlusion":"black",
+              "emissive":"plant_emissive"
             },
             "trashMaterial": {
               "type": "textured",
@@ -407,6 +414,12 @@
                         "type": "Movement",
                         "linearVelocity": [0.5, 0, 0.5],
                         "angularVelocity": [0, 0, 0]
+                    },
+                    {
+                      "type": "Light",
+                      "lightType": "point",
+                      "color": [0.0, 0.008, 0.0],
+                      "attenuation": [0.0006, 0.0, 0.0]
                     }
                 ]
               },
@@ -424,6 +437,12 @@
                         "type": "Movement",
                         "linearVelocity": [0.5, 0, 0.5],
                         "angularVelocity": [0, 0, 0]
+                    },
+                    {
+                      "type": "Light",
+                      "lightType": "point",
+                      "color": [0.0, 0.008, 0.0],
+                      "attenuation": [0.0006, 0.0, 0.0]
                     }
                 ]
               },
@@ -441,6 +460,12 @@
                         "type": "Movement",
                         "linearVelocity": [0.5, 0, 0.5],
                         "angularVelocity": [0, 0, 0]
+                    },
+                    {
+                      "type": "Light",
+                      "lightType": "point",
+                      "color": [0.0, 0.008, 0.0],
+                      "attenuation": [0.0006, 0.0, 0.0]
                     }
                 ]
               },
@@ -458,6 +483,12 @@
                         "type": "Movement",
                         "linearVelocity": [0.5, 0, 0.5],
                         "angularVelocity": [0, 0, 0]
+                    },
+                    {
+                      "type": "Light",
+                      "lightType": "point",
+                      "color": [0.0, 0.008, 0.0],
+                      "attenuation": [0.0006, 0.0, 0.0]
                     }
                 ]
               },
@@ -475,6 +506,12 @@
                         "type": "Movement",
                         "linearVelocity": [0.5, 0, 0.5],
                         "angularVelocity": [0, 0, 0]
+                    },
+                    {
+                      "type": "Light",
+                      "lightType": "point",
+                      "color": [0.0, 0.008, 0.0],
+                      "attenuation": [0.0006, 0.0, 0.0]
                     }
                 ]
               },
@@ -492,6 +529,12 @@
                         "type": "Movement",
                         "linearVelocity": [0.5, 0, 0.5],
                         "angularVelocity": [0, 0, 0]
+                    },
+                    {
+                      "type": "Light",
+                      "lightType": "point",
+                      "color": [0.0, 0.008, 0.0],
+                      "attenuation": [0.0006, 0.0, 0.0]
                     }
                 ]
               },
@@ -509,6 +552,12 @@
                         "type": "Movement",
                         "linearVelocity": [0.5, 0, 0.5],
                         "angularVelocity": [0, 0, 0]
+                    },
+                    {
+                      "type": "Light",
+                      "lightType": "point",
+                      "color": [0.0, 0.008, 0.0],
+                      "attenuation": [0.0006, 0.0, 0.0]
                     }
                 ]
               },
