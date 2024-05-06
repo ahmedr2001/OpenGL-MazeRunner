@@ -12,7 +12,7 @@
     "scene": {
         "renderer":{
             "sky": "assets/textures/sky2.jpg",
-            "postprocess": "assets/shaders/postprocess/vignette.frag"
+            "postprocess": "assets/shaders/postprocess/great_postprocessing_effect.frag"
         },
         "assets": {
             "shaders": {
