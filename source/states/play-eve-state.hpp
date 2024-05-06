@@ -20,7 +20,7 @@ class PlaystateEve: public our::State {
     our::MovementSystem movementSystem;
     our::CarControllerSystem carController;
 
-    const int speeddown_factor = 10;
+    const int speeddown_factor = 60;
     int duration_minutes, duration_seconds, clock;
 
     void onInitialize() override {
