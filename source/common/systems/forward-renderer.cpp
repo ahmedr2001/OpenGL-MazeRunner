@@ -114,7 +114,7 @@ namespace our
             delete skyMaterial;
         }
         // Delete all objects related to post processing
-        if (postprocessMaterial)
+        if (postprocessMaterial && effect)
         {
             glDeleteFramebuffers(1, &postprocessFrameBuffer);
             glDeleteVertexArrays(1, &postProcessVertexArray);
@@ -195,7 +195,7 @@ namespace our
         glDepthMask(GL_TRUE);
 
         // If there is a postprocess material, bind the framebuffer
-        if (postprocessMaterial)
+        if (postprocessMaterial && effect)
         {
             // TODO: (Req 11) bind the framebuffer
             glBindFramebuffer(GL_DRAW_FRAMEBUFFER, postprocessFrameBuffer);
