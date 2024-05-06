@@ -19,19 +19,6 @@ namespace our {
             sounds["loss-wall-e"] = new ma_sound();
             sounds["loss-eve"] = new ma_sound();
             sounds["win"] = new ma_sound();
-        }
-    public:
-        AudioController(const AudioController& obj) = delete;
-        static AudioController* getAudioController() {
-            if (audioController == NULL) {
-                audioController = new AudioController();
-                return audioController;
-            }
-            else {
-                return audioController;
-            }
-        }
-        void initialize() {
             // Initializing the audio engine
             ma_result result;
             ma_engine* pEngine = new ma_engine();
@@ -45,6 +32,17 @@ namespace our {
                 ma_sound_init_from_file(pEngine, "assets/audio/loss-wall-e.mp3", 0, NULL, NULL, sounds["loss-wall-e"]);
                 ma_sound_init_from_file(pEngine, "assets/audio/loss-eve.mp3", 0, NULL, NULL, sounds["loss-eve"]);
                 ma_sound_init_from_file(pEngine, "assets/audio/win.mp3", 0, NULL, NULL, sounds["win"]);
+            }
+        }
+    public:
+        AudioController(const AudioController& obj) = delete;
+        static AudioController* getAudioController() {
+            if (audioController == NULL) {
+                audioController = new AudioController();
+                return audioController;
+            }
+            else {
+                return audioController;
             }
         }
 
@@ -61,6 +59,7 @@ namespace our {
             else {
                 ma_sound_set_looping(sounds[state], false);
             }
+            ma_sound_seek_to_pcm_frame(sounds[state], 0);  // rewind to start of audio
             ma_sound_start(sounds[state]);
             currentlyPlaying.push_back(state);
         }

@@ -243,9 +243,8 @@ int our::Application::run(int run_for_frames) {
     // The time at which the last frame started. But there was no frames yet, so we'll just pick the current time.
     double last_frame_time = glfwGetTime();
     int current_frame = 0;
-    AudioController* auc = AudioController::getAudioController();
-    auc->initialize();
-    auc->play("menu", true, true);
+    AudioController* audioController = AudioController::getAudioController();
+    audioController->play("menu", true, true);
 
     //Game loop
     while(!glfwWindowShouldClose(window)){
@@ -341,10 +340,10 @@ int our::Application::run(int run_for_frames) {
             if (currentStateName == "win"
             || currentStateName == "loss-wall-e"
             || currentStateName == "loss-eve") {
-                auc->play(currentStateName, false, true);
+                audioController->play(currentStateName, false, true);
             }
             else {
-                auc->play(currentStateName, true, true);
+                audioController->play(currentStateName, true, true);
             }
         }
 
