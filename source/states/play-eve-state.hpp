@@ -81,13 +81,6 @@ class PlaystateEve: public our::State {
             // If the escape  key is pressed in this frame, go to the play state
             getApp()->changeState("menu");
         }
-
-        // Apply postProcessing effect or not
-        if(cameraController.effect_flag) {
-            renderer.toggle_effect(true);
-        } else {
-            renderer.toggle_effect(false);
-        }
     }
 
     void onDestroy() override {
