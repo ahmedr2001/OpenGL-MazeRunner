@@ -117,48 +117,48 @@ namespace our
                 // if(app->getKeyboard().isPressed(GLFW_KEY_A)) position -= right * (deltaTime * current_sensitivity.x);
             }
         }
-            // Collision detection handling
-            int iscollide(World * World, glm::vec3 & position)
+        // Collision detection handling
+        int iscollide(World * World, glm::vec3 & position)
+        {
+
+            glm::vec3 carPosition;
+            glm::vec3 wallPosition;
+            glm::vec3 zwallPosition;
+
+            auto entities = World->getEntities();
+
+            for (auto entity : entities)
             {
-
-                glm::vec3 carPosition;
-                glm::vec3 wallPosition;
-                glm::vec3 zwallPosition;
-
-                auto entities = World->getEntities();
-
-                for (auto entity : entities)
+                if (entity->getComponent<wall>())
                 {
-                    if (entity->getComponent<wall>())
+                    wallPosition = entity->localTransform.position;
+                    if (abs(position.x - wallPosition.x) <= 6 && abs(position.z - wallPosition.z) <= 2)
                     {
-                        wallPosition = entity->localTransform.position;
-                        if (abs(position.x - wallPosition.x) <= 6 && abs(position.z - wallPosition.z) <= 2)
-                        {
-                            return COLLIDED_WITH_XWALL;
-                        }
-                    }
-                    if (entity->getComponent<zwall>())
-                    {
-                        zwallPosition = entity->localTransform.position;
-
-                        if (abs(position.z - zwallPosition.z) <= 6 && abs(position.x - zwallPosition.x) <= 2)
-                        {
-
-                            return COLLIDED_WITH_ZWALL;
-                        }
+                        return COLLIDED_WITH_XWALL;
                     }
                 }
-                return NO_COLLISION;
-            }
-
-            // When the state exits, it should call this function to ensure the mouse is unlocked
-            void exit()
-            {
-                if (mouse_locked)
+                if (entity->getComponent<zwall>())
                 {
-                    mouse_locked = false;
-                    app->getMouse().unlockMouse(app->getWindow());
+                    zwallPosition = entity->localTransform.position;
+
+                    if (abs(position.z - zwallPosition.z) <= 6 && abs(position.x - zwallPosition.x) <= 2)
+                    {
+
+                        return COLLIDED_WITH_ZWALL;
+                    }
                 }
             }
-        };
-    }
+            return NO_COLLISION;
+        }
+
+        // When the state exits, it should call this function to ensure the mouse is unlocked
+        void exit()
+        {
+            if (mouse_locked)
+            {
+                mouse_locked = false;
+                app->getMouse().unlockMouse(app->getWindow());
+            }
+        }
+    };
+}
