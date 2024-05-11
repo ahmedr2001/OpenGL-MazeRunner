@@ -7,6 +7,7 @@
 #include "movement.hpp"
 #include "wall.hpp"
 #include "zwall.hpp"
+#include "pickup.hpp"
 #include "car.hpp"
 #include "car-controller.hpp"
 #include"light.hpp"
@@ -41,6 +42,9 @@ namespace our
         }
         else if (type == zwall::getID()) {
             component = entity->addComponent<zwall>();
+        }
+        else if (type == Pickup::getID()) {
+            component = entity->addComponent<Pickup>();
         }
         else if(type == LightComponent::getID()){
             component = entity->addComponent<LightComponent>();

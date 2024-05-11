@@ -93,6 +93,8 @@ set(COMMON_SOURCES
         source/common/components/wall.cpp
         source/common/components/zwall.hpp
         source/common/components/zwall.cpp
+        source/common/components/pickup.hpp
+        source/common/components/pickup.cpp
         source/common/components/car.hpp
         source/common/components/car.cpp
         source/common/components/audio-controller.hpp
