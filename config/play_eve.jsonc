@@ -416,11 +416,11 @@
                     {
                       "type": "pickup"
                     },
-                    // {
-                    //     "type": "Movement",
-                    //     "linearVelocity": [0.5, 0, 0.5],
-                    //     "angularVelocity": [0, 0, 0]
-                    // },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0.5, 0, 0.5],
+                        "angularVelocity": [0, 0, 0]
+                    },
                     {
                       "type": "Light",
                       "lightType": "point",
@@ -442,11 +442,11 @@
                     {
                       "type": "pickup"
                     },
-                    // {
-                    //     "type": "Movement",
-                    //     "linearVelocity": [0.5, 0, 0.5],
-                    //     "angularVelocity": [0, 0, 0]
-                    // },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0.5, 0, 0.5],
+                        "angularVelocity": [0, 0, 0]
+                    },
                     {
                       "type": "Light",
                       "lightType": "point",
@@ -468,11 +468,11 @@
                     {
                       "type": "pickup"
                     },
-                    // {
-                    //     "type": "Movement",
-                    //     "linearVelocity": [0.5, 0, 0.5],
-                    //     "angularVelocity": [0, 0, 0]
-                    // },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0.5, 0, 0.5],
+                        "angularVelocity": [0, 0, 0]
+                    },
                     {
                       "type": "Light",
                       "lightType": "point",
@@ -494,11 +494,11 @@
                     {
                       "type": "pickup"
                     },
-                    // {
-                    //     "type": "Movement",
-                    //     "linearVelocity": [0.5, 0, 0.5],
-                    //     "angularVelocity": [0, 0, 0]
-                    // },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0.5, 0, 0.5],
+                        "angularVelocity": [0, 0, 0]
+                    },
                     {
                       "type": "Light",
                       "lightType": "point",
@@ -520,11 +520,11 @@
                     {
                       "type": "pickup"
                     },
-                    // {
-                    //     "type": "Movement",
-                    //     "linearVelocity": [0.5, 0, 0.5],
-                    //     "angularVelocity": [0, 0, 0]
-                    // },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0.5, 0, 0.5],
+                        "angularVelocity": [0, 0, 0]
+                    },
                     {
                       "type": "Light",
                       "lightType": "point",
@@ -546,11 +546,11 @@
                     {
                       "type": "pickup"
                     },
-                    // {
-                    //     "type": "Movement",
-                    //     "linearVelocity": [0.5, 0, 0.5],
-                    //     "angularVelocity": [0, 0, 0]
-                    // },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0.5, 0, 0.5],
+                        "angularVelocity": [0, 0, 0]
+                    },
                     {
                       "type": "Light",
                       "lightType": "point",
@@ -572,11 +572,11 @@
                     {
                       "type": "pickup"
                     },
-                    // {
-                    //     "type": "Movement",
-                    //     "linearVelocity": [0.5, 0, 0.5],
-                    //     "angularVelocity": [0, 0, 0]
-                    // },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0.5, 0, 0.5],
+                        "angularVelocity": [0, 0, 0]
+                    },
                     {
                       "type": "Light",
                       "lightType": "point",
