@@ -109,7 +109,7 @@ namespace our
             if (iscolide)
             {
                 position -= front * (deltaTime * current_sensitivity.z);
-                audioController->play("hurt", 0, 0);
+                audioController->play("tom-scream", 0, 0);
             }
 
             if (app->getKeyboard().isPressed(GLFW_KEY_W) && !iscolide)
@@ -118,7 +118,7 @@ namespace our
             if (iscolide)
             {
                 position += front * (deltaTime * current_sensitivity.z);
-                audioController->play("hurt", 0, 0);
+                audioController->play("tom-scream", 0, 0);
             }
 
             // A & D moves the player left or right
