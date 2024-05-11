@@ -26,7 +26,7 @@ struct Material {
     sampler2D emissive;
 };
 
-#define MAX_LIGHTS 20
+#define MAX_LIGHTS 10
 
 uniform Light lights[MAX_LIGHTS];
 uniform int light_count;
