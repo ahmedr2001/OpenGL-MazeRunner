@@ -20,6 +20,8 @@ class PlaystateEve: public our::State {
     our::CarControllerSystem carController;
 
     int duration_minutes, duration_seconds, speeddown_factor, clock;
+    int extra_time;
+    bool extra_time_flag = false;
 
     void onInitialize() override {
         // First of all, we get the scene configuration from the app config
@@ -42,12 +44,17 @@ class PlaystateEve: public our::State {
         // Initialize timer
         duration_minutes = app_config["duration-minutes"], duration_seconds = app_config["duration-seconds"];
         speeddown_factor = app_config["speeddown-factor"], clock = speeddown_factor;
+        extra_time = app_config["extra_time"];
         // We initialize the camera controller system since it needs a pointer to the app
         cameraController.enter(getApp());
         carController.enter(getApp());
         // Then we initialize the renderer
         auto size = getApp()->getFrameBufferSize();
         renderer.initialize(size, config["renderer"]);
+    }
+
+    void addExtraTime() override {
+        extra_time_flag = true;
     }
 
     void onDraw(double deltaTime) override {
@@ -66,6 +73,17 @@ class PlaystateEve: public our::State {
         clock = (clock - 1 + speeddown_factor) % speeddown_factor;
         if (clock == 0) duration_seconds = (duration_seconds - 1 + 60) % 60;
         if (duration_seconds == 59 && clock == 0) duration_minutes--;
+
+        // Add extra time if collected pickup
+        if(extra_time_flag){
+            if(duration_seconds + extra_time >= 60) {
+                duration_seconds = (duration_seconds + extra_time) % 60;
+                duration_minutes++;
+            } else {
+                duration_seconds = (duration_seconds + extra_time) % 60;
+            }
+            extra_time_flag = false;
+        }
 
         movementSystem.update(&world, (float)deltaTime);
         cameraController.update(&world, (float)deltaTime);

@@ -204,6 +204,7 @@ namespace our
                         printf("DONE: Collected a pickup\n\n");
                         audioController->play("nice", 0, 0);
                         // return COLLIDED_WITH_PICKUP; // ?
+                        app->addExtraTime();
                     }
                 }
 

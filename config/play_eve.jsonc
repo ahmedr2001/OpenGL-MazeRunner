@@ -2,6 +2,7 @@
     "duration-minutes": 5,
     "duration-seconds": 0,
     "speeddown-factor": 10,
+    "extra_time" : 15,
     "start-scene": "menu",
     "window":
     {
