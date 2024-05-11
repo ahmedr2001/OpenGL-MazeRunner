@@ -15,6 +15,7 @@
 #include "../components/wall.hpp"
 #include "../components/zwall.hpp"
 #include "../components/pickup.hpp"
+#include "../components/light.hpp"
 #include "../components/car.hpp"
 #include "../components/movement.hpp"
 
@@ -108,7 +109,7 @@ namespace our
             if (iscolide)
             {
                 position -= front * (deltaTime * current_sensitivity.z);
-                audioController->play("win", 0, 0);
+                audioController->play("hurt", 0, 0);
             }
 
             if (app->getKeyboard().isPressed(GLFW_KEY_W) && !iscolide)
@@ -117,7 +118,7 @@ namespace our
             if (iscolide)
             {
                 position += front * (deltaTime * current_sensitivity.z);
-                audioController->play("win", 0, 0);
+                audioController->play("hurt", 0, 0);
             }
 
             // A & D moves the player left or right
@@ -180,7 +181,7 @@ namespace our
                     }
                 }
 
-                // This wall is aligned with the z-axis
+                // collecting pickup
                 if (entity->getComponent<Pickup>())
                 {
                     pickupPosition = entity->localTransform.position;
@@ -188,8 +189,21 @@ namespace our
                     if (abs(position.x - pickupPosition.x) <= 1 && abs(position.z - pickupPosition.z) <= 1)
                     {
                         // return COLLIDED_WITH_PICKUP;
-                        printf("//////////////\n");
-                        printf("Collected a pickup\n\n");
+                        printf("DOING: Collected a pickup\n");
+                        entity->deleteComponent(entity->getComponent<Pickup>());
+                        if (entity->getComponent<LightComponent>())
+                        {
+                            printf("deleting: light component\n");
+                            entity->deleteComponent(entity->getComponent<LightComponent>());
+                        }
+                        if (entity->getComponent<MovementComponent>())
+                        {
+                            printf("deleting: movement component\n");
+                            entity->deleteComponent(entity->getComponent<MovementComponent>());
+                        }
+                        printf("DONE: Collected a pickup\n\n");
+                        audioController->play("nice", 0, 0);
+                        // return COLLIDED_WITH_PICKUP; // ?
                     }
                 }
 
