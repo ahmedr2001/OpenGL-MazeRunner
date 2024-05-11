@@ -1,7 +1,7 @@
 #include <unordered_map>
 #include <string>
 #include <vector>
-
+#include "../../../vendor/miniaudio/miniaudio.h"
 namespace our
 {
 
@@ -9,9 +9,7 @@ namespace our
     {
     private:
         static AudioController *audioController;
-        ma_sound *currentMusic = nullptr;
-        ma_sound *nextMusic = nullptr;
-        std::unordered_map<std::string, ma_sound *> sounds; // All audio tracks that the program can run
+        std::unordered_map<std::string, ma_sound*> sounds; // All audio tracks that the program can run
         std::vector<std::string> currentlyPlaying;          // All audios currently playing
         AudioController()
         {

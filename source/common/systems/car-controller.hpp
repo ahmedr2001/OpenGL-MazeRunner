@@ -3,6 +3,7 @@
 #include "../ecs/world.hpp"
 #include "../components/camera.hpp"
 #include "../components/free-camera-controller.hpp"
+#include "../components/audio-controller.hpp"
 #include "../components/car-controller.hpp"
 
 #include "../application.hpp"
@@ -28,7 +29,8 @@ namespace our
     // For more information, see "common/components/free-camera-controller.hpp"
     class CarControllerSystem {
         Application* app; // The application in which the state runs
-        bool mouse_locked = false; // Is the mouse locked  
+        bool mouse_locked = false; // Is the mouse locked
+        our::AudioController *audioController = our::AudioController::getAudioController();
 
     public:
         bool iscolide;
@@ -95,11 +97,17 @@ namespace our
             // S & W moves the player back and forth
             if(app->getKeyboard().isPressed(GLFW_KEY_S)) position += front * (deltaTime * (current_sensitivity.z));
             iscolide = iscollide(world,position);
-            if(iscolide) position -= front * (deltaTime * current_sensitivity.z);
+            if(iscolide) {
+                position -= front * (deltaTime * current_sensitivity.z);
+                audioController->play("win", 0, 0);
+            }
 
             if(app->getKeyboard().isPressed(GLFW_KEY_W)&&!iscolide) position -= front * (deltaTime * current_sensitivity.z);
             iscolide = iscollide(world,position);
-            if(iscolide) position += front * (deltaTime * current_sensitivity.z);
+            if(iscolide) {
+                position += front * (deltaTime * current_sensitivity.z);
+                audioController->play("win", 0, 0);
+            }
 
             // A & D moves the player left or right 
             // if(app->getKeyboard().isPressed(GLFW_KEY_D)) rotation.y -= deltaTime* 100 * controller->rotationSensitivity;

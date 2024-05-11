@@ -1,7 +1,7 @@
 #include "application.hpp"
 
-#define MINIAUDIO_IMPLEMENTATION
-#include <miniaudio.h>
+//#define MINIAUDIO_IMPLEMENTATION
+//#include <miniaudio.h>
 
 #include <iostream>
 #include <fstream>
