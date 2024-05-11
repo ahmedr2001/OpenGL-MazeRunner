@@ -9,7 +9,7 @@ namespace our
     {
     private:
         static AudioController *audioController;
-        std::unordered_map<std::string, ma_sound*> sounds; // All audio tracks that the program can run
+        std::unordered_map<std::string, ma_sound *> sounds; // All audio tracks that the program can run
         std::vector<std::string> currentlyPlaying;          // All audios currently playing
         AudioController()
         {
@@ -19,6 +19,8 @@ namespace our
             sounds["loss-wall-e"] = new ma_sound();
             sounds["loss-eve"] = new ma_sound();
             sounds["win"] = new ma_sound();
+            sounds["nice"] = new ma_sound();
+            sounds["hurt"] = new ma_sound();
             // Initializing the audio engine
             ma_result result;
             ma_engine *pEngine = new ma_engine();
@@ -33,6 +35,8 @@ namespace our
                 ma_sound_init_from_file(pEngine, "assets/audio/loss-wall-e.mp3", 0, NULL, NULL, sounds["loss-wall-e"]);
                 ma_sound_init_from_file(pEngine, "assets/audio/loss-eve.mp3", 0, NULL, NULL, sounds["loss-eve"]);
                 ma_sound_init_from_file(pEngine, "assets/audio/win.mp3", 0, NULL, NULL, sounds["win"]);
+                ma_sound_init_from_file(pEngine, "assets/audio/nice.mp3", 0, NULL, NULL, sounds["nice"]);
+                ma_sound_init_from_file(pEngine, "assets/audio/hurt.mp3", 0, NULL, NULL, sounds["hurt"]);
             }
         }
 
