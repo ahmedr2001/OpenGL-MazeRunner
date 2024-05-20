@@ -20,6 +20,7 @@ victory? prepare for the ultimate maze-solving adventure!"
 - GLSL.
 - C++ tinyobjloader.
 - CMake.
+- miniaudio
 
 ### Repository Structure
 
@@ -42,10 +43,9 @@ victory? prepare for the ultimate maze-solving adventure!"
 
 - Texture Mapping.
 - Sky Texture, using Volume Texture Mapping.
-- Grain Noise.
-- Shadow Mapping, using Depth Maps.
+- post-processing effects
 
-### Implemented Shaders
+### Instructions
 
 1) Make sure your graphics drivers are installed.
 2) Install OpenGL on your machine.
