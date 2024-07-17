@@ -1,7 +1,7 @@
+![poster](https://github.com/user-attachments/assets/6fa5e798-87b1-40ce-8ce9-419dc471db9d)
 # Maze Runner
 
 ### Brief Description 
-
 In Maze Runner: Car Edition, players take on the role of a high-tech, remote-controlled car
 equipped with advanced sensors and powers. The goal is to navigate through a series of
 increasingly complex mazes and reach the finish line as quickly as possible..
@@ -14,6 +14,13 @@ Features:
 range of upgrades and accessories available to unlock.
 Are you ready to embark on an epic journey where every twist and turn leads you closer to
 victory? prepare for the ultimate maze-solving adventure!"
+
+### 📷 Screen shots
+![3](https://github.com/user-attachments/assets/875ab910-f9a4-4c28-b347-4b7adf8db599)
+![4](https://github.com/user-attachments/assets/ff925d17-ad30-4503-8bfc-1bb9f324d543)
+![5](https://github.com/user-attachments/assets/f4bcf92b-d62c-48a8-a177-89318d54000c)
+
+
 ### Utilized Technologies and Frameworks
 
 - C++ OpenGL Libraries, such as: GLFW, GLAD and GLM.
